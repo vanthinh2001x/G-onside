@@ -3,28 +3,58 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { Text } from "react-native";
 import { useDispatch } from "react-redux";
+import { setTranslate } from "../app/features/translateSlice";
 import { setInitialState } from "../app/features/userSlice";
 import BottomTabBar from "../components/BottomTabBar";
 import StorageKeys from "../constants/storage-key";
 import HomeScreen from "../screens/HomeScreen";
+import LoadingScreen from "../screens/LoadingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import Messages from "../screens/Messages";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import SignupScreen from "../screens/SignupScreen";
+import translateApi from "../api/translateApi";
 import { config } from "./config";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       authUser();
+      translateCheck();
     })();
   }, []);
+
+  const translateCheck = async () => {
+    try {
+      const translateStorage = await AsyncStorage.getItem(
+        StorageKeys.TRANSLATE
+      );
+      if (translateStorage) {
+        const translateData = JSON.parse(translateStorage);
+        dispatch(setTranslate(translateData));
+      } else {
+        let translate = await translateApi.getTranslationByApp("g-on", "vi");
+        let translateData = {};
+        translate.map((x) => {
+          translateData = { ...translateData, [x.translationCode]: x.text };
+        });
+        dispatch(setTranslate(translateData));
+        await AsyncStorage.setItem(
+          StorageKeys.TRANSLATE,
+          JSON.stringify(translateData)
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setLoading(false);
+  };
 
   const authUser = async () => {
     try {
@@ -71,8 +101,8 @@ const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      {!initialRouteName ? (
-        <Text>Loading....</Text>
+      {!initialRouteName || loading ? (
+        <LoadingScreen />
       ) : (
         <Stack.Navigator
           screenOptions={config}
