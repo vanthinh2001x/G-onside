@@ -1,6 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import StorageKeys from "../../constants/storage-key";
+import { createSlice } from "@reduxjs/toolkit";
 
 const translateSlice = createSlice({
   name: "translate",

@@ -6,6 +6,8 @@ import React from "react";
 const Notifications = () => {
   let user = useSelector((state) => state.user.userData);
   console.log("UWU: ", user);
+  const translate = useSelector((state) => state.translate);
+  console.log("translate login: ", translate);
   return (
     <SafeAreaView className="sticky top-0 z-10 p-4 max-w-2xl mx-auto my-4 flex flex-row items-center backdrop-blur md:px-0 lg:max-w-3xl">
       <Text>Notifications</Text>

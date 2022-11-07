@@ -1,11 +1,14 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useState } from "react";
 import { Image, SafeAreaView, Text, View } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../app/features/userSlice";
 import Button from "../components/Button";
 import Input from "../components/Input";
 function LoginScreen({ navigation }) {
+  const translate = useSelector((state) => state.translate.translateData);
+  console.log("translate login: ", translate);
+  console.log("translate login: ", translate.g_on_login_nut_dang_nhap);
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({ email: "", password: "" });
   const handleInputChange = (newData, key) => {
@@ -28,15 +31,12 @@ function LoginScreen({ navigation }) {
     <SafeAreaView className="pt-10 px-3 bg-white h-full">
       <View className="pt-12 px-5">
         <View className="items-center">
-          <Image
-            className="h-20 w-20 mb-5"
-            source={require("../assets/logo.png")}
-          />
-          <Text className="text-gray-500 text-5xl font-bold">
-            <Text className="text-blue-500">Log</Text> In
+          <Image className="h-36 w-36" source={require("../assets/Gnet.jpg")} />
+          <Text className="text-blue-500 text-4xl font-bold">
+            {translate.g_on_login_tieu_de_trang_dang_nhap}
           </Text>
-          <Text className="text-gray-600 text-lg font-medium my-3">
-            Enter Your Account To Login
+          <Text className="text-gray-600 text-base font-medium mt-2 mb-4">
+            {translate.g_on_login_noi_dung_trang_dang_nhap}
           </Text>
         </View>
         <View style={{ marginVertical: 20 }}>
@@ -44,20 +44,23 @@ function LoginScreen({ navigation }) {
             onChangeText={(text) => handleInputChange(text, "email")}
             label="Email"
             iconName="email-outline"
-            placeholder="Email Address"
+            placeholder="Email"
             error={false}
           />
           <Input
             onChangeText={(text) => handleInputChange(text, "password")}
             label="Password"
             iconName="lock-outline"
-            placeholder="Password"
+            placeholder={translate.g_on_login_mat_khau}
             error={false}
             password={true}
           />
         </View>
-        <Button title="Login" onPress={handleSubmit} />
-        <Text className="text-gray-500 font-medium text-center text-base">
+        <Button
+          title={translate.g_on_login_nut_dang_nhap}
+          onPress={handleSubmit}
+        />
+        {/* <Text className="text-gray-500 font-medium text-center text-base">
           Don't have account?{" "}
           <Text
             onPress={() => navigation.navigate("Signup")}
@@ -65,6 +68,9 @@ function LoginScreen({ navigation }) {
           >
             Register here
           </Text>
+        </Text> */}
+        <Text className="text-blue-500 font-medium text-center text-base">
+          {translate.g_on_login_quen_mat_khau}
         </Text>
       </View>
     </SafeAreaView>
