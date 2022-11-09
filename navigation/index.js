@@ -17,6 +17,7 @@ import Profile from "../screens/Profile";
 import SignupScreen from "../screens/SignupScreen";
 import translateApi from "../api/translateApi";
 import { config } from "./config";
+import CryptoJS from "react-native-crypto-js";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -60,8 +61,9 @@ const AppNavigation = () => {
     try {
       const userData = await AsyncStorage.getItem(StorageKeys.USER);
       if (userData) {
-        dispatch(setInitialState());
-        console.log("login:", userData);
+        dispatch(setInitialState(userData));
+        const type = typeof userData;
+        console.log("login:", type, userData);
         setInitialRouteName("Home");
       } else {
         setInitialRouteName("AuthStack");

@@ -8,7 +8,6 @@ import Input from "../components/Input";
 function LoginScreen({ navigation }) {
   const translate = useSelector((state) => state.translate.translateData);
   console.log("translate login: ", translate);
-  console.log("translate login: ", translate.g_on_login_nut_dang_nhap);
   const dispatch = useDispatch();
   const [inputData, setInputData] = useState({ email: "", password: "" });
   const handleInputChange = (newData, key) => {
@@ -29,13 +28,13 @@ function LoginScreen({ navigation }) {
   };
   return (
     <SafeAreaView className="pt-10 px-3 bg-white h-full">
-      <View className="pt-12 px-5">
+      <View className="px-5 pt-6">
         <View className="items-center">
           <Image className="h-36 w-36" source={require("../assets/Gnet.jpg")} />
           <Text className="text-blue-500 text-4xl font-bold">
             {translate.g_on_login_tieu_de_trang_dang_nhap}
           </Text>
-          <Text className="text-gray-600 text-base font-medium mt-2 mb-4">
+          <Text className="text-gray-600 text-base font-medium mt-2 mb-10">
             {translate.g_on_login_noi_dung_trang_dang_nhap}
           </Text>
         </View>
