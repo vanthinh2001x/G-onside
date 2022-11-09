@@ -1,10 +1,9 @@
-import { View, Text, Button, Pressable } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CryptoJS from "react-native-crypto-js";
 import React from "react";
-import StorageKeys from "../constants/storage-key";
+import { Pressable, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
 import { logout } from "../app/features/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import StorageKeys from "../constants/storage-key";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();

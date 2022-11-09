@@ -1,16 +1,8 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import CryptoJS from "react-native-crypto-js";
 import userApi from "../../api/userApi";
 import StorageKeys from "../../constants/storage-key";
-import CryptoJS from "react-native-crypto-js";
-
-// export const setInitialState = createAsyncThunk("user/setUser", async () => {
-//   const userDataJson = await AsyncStorage.getItem(StorageKeys.USER);
-//   if (userDataJson) {
-//     const userData = JSON.parse(userDataJson);
-//     return userData;
-//   }
-// });
 
 export const login = createAsyncThunk("user/login", async (payload) => {
   const userData = await userApi.login(payload);
@@ -53,8 +45,6 @@ export const login = createAsyncThunk("user/login", async (payload) => {
     userData.tokenID
   ).toString();
   await AsyncStorage.setItem(StorageKeys.USER, JSON.stringify(userData));
-  const type = typeof userData;
-  console.log("login redux:", type, userData);
   return userData;
 });
 
@@ -73,9 +63,6 @@ const userSlice = createSlice({
     },
   },
   extraReducers: {
-    // [setInitialState.fulfilled]: (state, action) => {
-    //   state.userData = action.payload;
-    // },
     [login.fulfilled]: (state, action) => {
       state.userData = action.payload;
     },

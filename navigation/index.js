@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import translateApi from "../api/translateApi";
 import { setTranslate } from "../app/features/translateSlice";
 import { setInitialState } from "../app/features/userSlice";
 import BottomTabBar from "../components/BottomTabBar";
@@ -15,9 +16,7 @@ import Messages from "../screens/Messages";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import SignupScreen from "../screens/SignupScreen";
-import translateApi from "../api/translateApi";
 import { config } from "./config";
-import CryptoJS from "react-native-crypto-js";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
