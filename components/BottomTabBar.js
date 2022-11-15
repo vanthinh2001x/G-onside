@@ -17,6 +17,12 @@ const tabBarData = [
     routeName: "Messages",
   },
   {
+    name: "Group",
+    icon: "people-outline",
+    iconActive: "people",
+    routeName: "Group",
+  },
+  {
     name: "Notification",
     icon: "ios-notifications-outline",
     iconActive: "ios-notifications",
@@ -43,9 +49,9 @@ const BottomTabBar = ({ navigation, state }) => {
           <Animated.View entering={BounceIn} className="activeLine" />
         )}
         {isActive ? (
-          <Icon name={item.iconActive} size={27} color="#3b82f6" />
+          <Icon name={item.iconActive} size={27} color="#1876f2" />
         ) : (
-          <Icon name={item.icon} size={27} color="#94a3b8" />
+          <Icon name={item.icon} size={27} color="#65676b" />
         )}
       </Pressable>
     );
@@ -53,7 +59,7 @@ const BottomTabBar = ({ navigation, state }) => {
 
   return (
     <View>
-      <View className="flex-row h-16 items-center justify-between bg-white border-t-gray-200 border-t-2">
+      <View className="flex-row h-12 items-center justify-between bg-white border-t-[#e9ecf3] border-t-[0.4px]">
         {tabBarData.map(renderTabBarItem)}
       </View>
     </View>

@@ -34,31 +34,31 @@ function LoginScreen({ navigation }) {
           <Text className="text-blue-500 text-4xl font-bold">
             {translate.g_on_login_tieu_de_trang_dang_nhap}
           </Text>
-          <Text className="text-gray-600 text-base font-medium mt-2 mb-10">
+          <Text className="text-Slate-900 text-base font-medium mt-2 mb-10">
             {translate.g_on_login_noi_dung_trang_dang_nhap}
           </Text>
         </View>
         <View style={{ marginVertical: 20 }}>
           <Input
             onChangeText={(text) => handleInputChange(text, "email")}
-            label="Email"
             iconName="email-outline"
             placeholder="Email"
-            error={false}
           />
           <Input
             onChangeText={(text) => handleInputChange(text, "password")}
-            label="Password"
             iconName="lock-outline"
             placeholder={translate.g_on_login_mat_khau}
-            error={false}
             password={true}
           />
         </View>
-        <Button
-          title={translate.g_on_login_nut_dang_nhap}
-          onPress={handleSubmit}
-        />
+        <View className="mb-4">
+          <Button
+            title={translate.g_on_login_nut_dang_nhap}
+            onPress={handleSubmit}
+            bgColor="#3b82f6"
+            textColor="#fff"
+          />
+        </View>
         {/* <Text className="text-gray-500 font-medium text-center text-base">
           Don't have account?{" "}
           <Text
