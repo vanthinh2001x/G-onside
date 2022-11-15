@@ -13,9 +13,11 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
 import { logout } from "../app/features/userSlice";
 import StorageKeys from "../constants/storage-key";
+import { useActionSheet } from "@expo/react-native-action-sheet";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
+  const { showActionSheetWithOptions } = useActionSheet();
   const handleLogout = async () => {
     const user = await AsyncStorage.getItem(StorageKeys.USER);
     const gtk = JSON.parse(user).jwtToken;
@@ -28,6 +30,31 @@ const Profile = ({ navigation }) => {
   };
   const handleClearTranslate = async () => {
     await AsyncStorage.removeItem(StorageKeys.TRANSLATE);
+  };
+  const logoutPress = () => {
+    const options = ["Logout", "Cancel"];
+    const cancelButtonIndex = 1;
+    const tintColor = "#dc2626";
+    const cancelButtonTintColor = "#3b82f6";
+    const title = "Are you sure you want to log out?";
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        tintColor,
+        cancelButtonTintColor,
+        title,
+      },
+      (selectedIndex) => {
+        switch (selectedIndex) {
+          case 0:
+            handleLogout();
+            break;
+          case cancelButtonIndex:
+          // cancel
+        }
+      }
+    );
   };
 
   return (
@@ -128,7 +155,7 @@ const Profile = ({ navigation }) => {
               />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6} onPress={handleLogout}>
+          <TouchableOpacity activeOpacity={0.6} onPress={logoutPress}>
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
               <Ionicons name="log-out" size={26} color="#1e293b" />
               <Text className="flex-1 text-lg font-bold text-slate-800">
