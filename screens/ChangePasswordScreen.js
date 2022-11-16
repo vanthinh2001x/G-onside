@@ -1,3 +1,4 @@
+import React from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -5,15 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import Input from "../components/Input";
-import React, { useLayoutEffect } from "react";
 import { Ionicons } from "react-native-vector-icons";
 import Button from "../components/Button";
-
+import Input from "../components/Input";
+import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 const ChangePasswordScreen = ({ navigation }) => {
-  useLayoutEffect(() => {}, []);
   return (
-    <SafeAreaView className="bg-white w-full h-full">
+    <SafeAreaView
+      style={AndroidSafeArea.AndroidSafeArea}
+      className="bg-white w-full h-full"
+    >
       <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
         <TouchableOpacity
           activeOpacity={0.6}

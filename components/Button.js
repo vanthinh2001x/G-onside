@@ -8,7 +8,7 @@ const Button = ({ title, onPress = () => {}, bgColor, textColor }) => {
       className="h-14 w-full justify-center items-center rounded-lg"
       style={{ backgroundColor: bgColor }}
     >
-      <Text className="font-bold text-xl" style={{ color: textColor }}>
+      <Text className="font-semibold text-lg" style={{ color: textColor }}>
         {title}
       </Text>
     </TouchableOpacity>

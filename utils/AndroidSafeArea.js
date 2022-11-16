@@ -1,4 +1,4 @@
-import { StatusBar, StyleSheet } from "react-native";
+import { Platform, StatusBar, StyleSheet } from "react-native";
 
 export const AndroidSafeArea = StyleSheet.create({
   AndroidSafeArea: {

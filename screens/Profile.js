@@ -1,19 +1,23 @@
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React from "react";
+import React, { useState, useMemo, useRef } from "react";
 import {
   Image,
+  Modal,
   SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
 import { logout } from "../app/features/userSlice";
 import StorageKeys from "../constants/storage-key";
-import { useActionSheet } from "@expo/react-native-action-sheet";
+import { AndroidSafeArea } from "../utils/AndroidSafeArea";
+import BottomSheet from "@gorhom/bottom-sheet";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -56,24 +60,82 @@ const Profile = ({ navigation }) => {
       }
     );
   };
-
+  const [imageModalVisible, setImageModalVisible] = useState(false);
+  const images = [
+    {
+      url: "",
+      props: {
+        source: require("../assets/avatar.jpg"),
+      },
+    },
+  ];
+  const avatarSheetRef = useRef(null);
+  const avatarSnapPoints = useMemo(() => ["25%"], []);
+  const [isAvatarSheetOpen, setIsAvatarSheetOpen] = useState(false);
   return (
-    <SafeAreaView className="bg-white w-full h-full ">
+    <SafeAreaView
+      className="bg-white w-full h-full "
+      style={AndroidSafeArea.AndroidSafeArea}
+    >
+      <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+        <Text className="text-xl font-semibold text-gray-900">Profile</Text>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => navigation.navigate("EditProfile")}
+          className="absolute right-4"
+        >
+          <Text className="text-base font-semibold">
+            <Ionicons name="create-outline" size={28} />
+          </Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView
         pagingEnabled
         showsVerticalScrollIndicator={false}
         className="pt-8"
       >
         <View className="flex-row items-center px-6">
-          <TouchableOpacity
-            activeOpacity={0.9}
-            onPress={() => navigation.navigate("avatar")}
-          >
-            <Image
-              source={require("../assets/avatar.jpg")}
-              className="h-[84px] w-[84px] rounded-full mr-6 border-4 border-blue-200"
-            />
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              activeOpacity={0.9}
+              // onPress={() => setImageModalVisible(true)}
+              onPress={() => avatarSheetRef.current.expand()}
+            >
+              <Image
+                source={require("../assets/avatar.jpg")}
+                className="h-[84px] w-[84px] rounded-full mr-6 border-4 border-blue-200"
+              />
+            </TouchableOpacity>
+            <View className="relative">
+              <Modal
+                transparent={true}
+                animationType="fade"
+                visible={imageModalVisible}
+                className="absolute"
+              >
+                <ImageViewer
+                  imageUrls={images}
+                  renderIndicator={() => ""}
+                  onSwipeDown={() => setImageModalVisible(false)}
+                  enableSwipeDown={true}
+                />
+                <TouchableOpacity
+                  className="absolute top-4 left-6 z-10 "
+                  activeOpacity={0.5}
+                  onPress={() => setImageModalVisible(false)}
+                >
+                  <Ionicons name="close-circle" size={28} color="#fff" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  className="absolute top-4 right-6 z-10"
+                  activeOpacity={0.5}
+                  onPress={() => {}}
+                >
+                  <Ionicons name="download-outline" size={28} color="#fff" />
+                </TouchableOpacity>
+              </Modal>
+            </View>
+          </View>
           <View>
             <Text className="text-2xl font-bold text-slate-800 pb-[4px]">
               Thinh Pham Van
@@ -165,6 +227,59 @@ const Profile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <BottomSheet
+        ref={avatarSheetRef}
+        index={-1}
+        snapPoints={avatarSnapPoints}
+        enablePanDownToClose
+        overDragResistanceFactor={10}
+        backgroundStyle={{}}
+        handleStyle={{
+          borderWidth: 2,
+          borderBottomWidth: 0,
+          borderColor: "#d1d5db",
+          borderTopLeftRadius: 50,
+          borderTopRightRadius: 50,
+        }}
+        style={{}}
+        handleIndicatorStyle={{ backgroundColor: "#9ca3af", width: 40 }}
+      >
+        <View className="h-[100%] w-full p-4">
+          <TouchableOpacity
+            onPress={() => {
+              setImageModalVisible(true);
+              avatarSheetRef.current.close();
+            }}
+            activeOpacity={0.6}
+            className="flex-row items-center gap-3 mb-4"
+          >
+            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+              <Ionicons
+                name="person-circle-outline"
+                color="#111827"
+                size={30}
+              />
+            </View>
+            <Text className="text-lg font-semibold text-gray-900">
+              View Profile Picture
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              avatarSheetRef.current.close();
+            }}
+            className="flex-row items-center gap-3 mb-4"
+          >
+            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+              <Ionicons name="images" color="#111827" size={24} />
+            </View>
+            <Text className="text-lg font-semibold text-gray-900">
+              Select Profile Picture
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
     </SafeAreaView>
   );
 };

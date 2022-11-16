@@ -8,12 +8,16 @@ import {
 } from "react-native";
 import Input from "../components/Input";
 import InputDate from "../components/InputDate";
+import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const EditProfileScreen = ({ navigation }) => {
   const [date, setDate] = useState("09-10-2001");
   const onDateChange = (date) => setDate(date);
   return (
-    <SafeAreaView className="bg-white w-full h-full">
+    <SafeAreaView
+      style={AndroidSafeArea.AndroidSafeArea}
+      className="bg-white w-full h-full"
+    >
       <View className="flex-row items-center justify-between p-4 border-b-[1px] border-b-gray-100">
         <TouchableOpacity
           activeOpacity={0.6}

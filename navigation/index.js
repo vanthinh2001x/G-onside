@@ -3,15 +3,12 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/Feather";
 import { useDispatch } from "react-redux";
 import translateApi from "../api/translateApi";
 import { setTranslate } from "../app/features/translateSlice";
 import { setInitialState } from "../app/features/userSlice";
 import BottomTabBar from "../components/BottomTabBar";
 import StorageKeys from "../constants/storage-key";
-import AvatarScreen from "../screens/AvatarScreen";
 import ChangePasswordScreen from "../screens/ChangePasswordScreen";
 import EditProfileScreen from "../screens/EditProfileScreen";
 import GroupScreen from "../screens/GroupScreen";
@@ -89,33 +86,7 @@ const AppNavigation = () => {
       <Tab.Screen name="Messages" component={Messages} />
       <Tab.Screen name="Group" component={GroupScreen} />
       <Tab.Screen name="Notifications" component={Notifications} />
-      <Tab.Screen
-        options={{
-          headerShown: true,
-          headerTitleStyle: {
-            fontWeight: "700",
-            fontSize: "20px",
-          },
-          headerRight: () => (
-            <TouchableOpacity
-              activeOpacity={0.9}
-              onPress={() => navigation.navigate("EditProfile")}
-            >
-              <Icon
-                name="edit-3"
-                size={20}
-                color="#111827"
-                style={{ paddingRight: 20 }}
-              />
-            </TouchableOpacity>
-          ),
-          headerStyle: {
-            height: 70,
-          },
-        }}
-        name="Profile"
-        component={Profile}
-      />
+      <Tab.Screen name="Profile" component={Profile} />
     </Tab.Navigator>
   );
 
@@ -123,7 +94,6 @@ const AppNavigation = () => {
     <Stack.Navigator screenOptions={config}>
       <Stack.Screen name="HomeTab" component={HomeTab} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-      <Stack.Screen name="avatar" component={AvatarScreen} />
       <Stack.Screen name="changePassword" component={ChangePasswordScreen} />
     </Stack.Navigator>
   );

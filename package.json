@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^4.0.1",
+    "@gorhom/bottom-sheet": "^4.4.5",
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
@@ -24,7 +25,9 @@
     "react-native": "0.69.6",
     "react-native-crypto-js": "^1.0.0",
     "react-native-datepicker": "^1.7.2",
-    "react-native-reanimated": "~2.9.1",
+    "react-native-gesture-handler": "^2.5.0",
+    "react-native-image-zoom-viewer": "^3.0.1",
+    "react-native-reanimated": "^2.9.1",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.4"
   },
