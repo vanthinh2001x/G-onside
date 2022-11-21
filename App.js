@@ -4,6 +4,7 @@ import store from "./app/store";
 import AppNavigation from "./navigation";
 
 export default function App() {
+  console.log();
   return (
     <Provider store={store}>
       <ActionSheetProvider>

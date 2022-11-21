@@ -1,6 +1,7 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
+import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import {
   Image,
   Modal,
@@ -17,7 +18,6 @@ import { useDispatch } from "react-redux";
 import { logout } from "../app/features/userSlice";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
-import BottomSheet from "@gorhom/bottom-sheet";
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -60,6 +60,7 @@ const Profile = ({ navigation }) => {
       }
     );
   };
+
   const [imageModalVisible, setImageModalVisible] = useState(false);
   const images = [
     {
@@ -69,9 +70,9 @@ const Profile = ({ navigation }) => {
       },
     },
   ];
+
   const avatarSheetRef = useRef(null);
-  const avatarSnapPoints = useMemo(() => ["25%"], []);
-  const [isAvatarSheetOpen, setIsAvatarSheetOpen] = useState(false);
+  const avatarSnapPoints = useMemo(() => ["30%"], []);
   return (
     <SafeAreaView
       className="bg-white w-full h-full "

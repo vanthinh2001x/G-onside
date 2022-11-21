@@ -11,6 +11,7 @@
   "dependencies": {
     "@expo/react-native-action-sheet": "^4.0.1",
     "@gorhom/bottom-sheet": "^4.4.5",
+    "@gorhom/portal": "^1.0.14",
     "@react-native-async-storage/async-storage": "^1.17.10",
     "@react-navigation/bottom-tabs": "^6.4.0",
     "@react-navigation/native": "^6.0.13",
@@ -29,7 +30,8 @@
     "react-native-image-zoom-viewer": "^3.0.1",
     "react-native-reanimated": "^2.9.1",
     "react-native-vector-icons": "^9.2.0",
-    "react-redux": "^8.0.4"
+    "react-redux": "^8.0.4",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
