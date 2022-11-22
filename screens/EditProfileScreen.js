@@ -11,8 +11,9 @@ import InputDate from "../components/InputDate";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const EditProfileScreen = ({ navigation }) => {
-  const [date, setDate] = useState("09-10-2001");
-  const onDateChange = (date) => setDate(date);
+  const [date, setDate] = useState(new Date());
+  const handleConfirmDate = (date) => setDate(date);
+
   return (
     <SafeAreaView
       style={AndroidSafeArea.AndroidSafeArea}
@@ -68,7 +69,7 @@ const EditProfileScreen = ({ navigation }) => {
             <Text className="text-base font-medium text-gray-900 pl-1 mb-3">
               Day Of Birth
             </Text>
-            <InputDate date={date} onDateChange={onDateChange} />
+            <InputDate date={date} onConfirmDate={handleConfirmDate} />
           </View>
           <View>
             <Text className="text-base font-medium text-gray-900 pl-1 mb-1">

@@ -1,43 +1,42 @@
-import React from "react";
-import DatePicker from "react-native-datepicker";
+import moment from "moment";
+import { useState } from "react";
+import { Pressable, Text, View } from "react-native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
-const InputDate = ({ date, onDateChange }) => {
+const InputDate = ({ date, onConfirmDate }) => {
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
   return (
-    <DatePicker
-      className="w-full"
-      date={date}
-      mode="date"
-      placeholder="select date"
-      format="DD/MM/YYYY"
-      minDate="01-01-1900"
-      maxDate="01-01-2023"
-      confirmBtnText="Confirm"
-      cancelBtnText="Cancel"
-      customStyles={{
-        dateIcon: {
-          position: "absolute",
-          height: 24,
-          width: 24,
-          left: 8,
-        },
-        dateInput: {
-          borderColor: "#9ca3af",
-          alignItems: "flex-start",
-          borderWidth: 1,
-          height: 56,
-          borderRadius: 8,
-          padding: 16,
-        },
-        dateText: {
-          fontSize: 16,
-          lineHeight: 24,
-          paddingLeft: 28,
-          color: "#111827",
-        },
-      }}
-      onDateChange={onDateChange}
-    />
+    <View className="mb-4">
+      <Pressable
+        onPress={() => setDatePickerVisibility(true)}
+        className="h-14 flex-row bg-white px-4 items-center rounded-lg border border-gray-400"
+      >
+        <View className="mr-2">
+          <Icon name="calendar" size={20} color="#4b5563" />
+        </View>
+
+        <Text className="flex-1 text-base leading-5 placeholder:text-gray-400 text-gray-900">
+          {moment(date).format("DD/MM/YYYY")}
+        </Text>
+      </Pressable>
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={(date) => {
+          onConfirmDate(date);
+          setDatePickerVisibility(false);
+        }}
+        onCancel={() => {
+          setDatePickerVisibility(false);
+        }}
+      />
+    </View>
   );
 };
-
 export default InputDate;
