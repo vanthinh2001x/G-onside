@@ -7,10 +7,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 const InputDate = ({ date, onConfirmDate }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
   return (
     <View className="mb-4">
       <Pressable
@@ -20,7 +16,6 @@ const InputDate = ({ date, onConfirmDate }) => {
         <View className="mr-2">
           <Icon name="calendar" size={20} color="#4b5563" />
         </View>
-
         <Text className="flex-1 text-base leading-5 placeholder:text-gray-400 text-gray-900">
           {moment(date).format("DD/MM/YYYY")}
         </Text>

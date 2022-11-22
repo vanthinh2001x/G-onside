@@ -1,5 +1,4 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
-import BottomSheet from "@gorhom/bottom-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useMemo, useRef, useState } from "react";
 import {
@@ -12,6 +11,7 @@ import {
   View,
 } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
+import RBSheet from "react-native-raw-bottom-sheet";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch } from "react-redux";
@@ -71,7 +71,7 @@ const Profile = ({ navigation }) => {
     },
   ];
 
-  const avatarSheetRef = useRef(null);
+  const avatarSheetRef = useRef();
   const avatarSnapPoints = useMemo(() => ["30%"], []);
   return (
     <SafeAreaView
@@ -100,7 +100,7 @@ const Profile = ({ navigation }) => {
             <TouchableOpacity
               activeOpacity={0.9}
               // onPress={() => setImageModalVisible(true)}
-              onPress={() => avatarSheetRef.current.expand()}
+              onPress={() => avatarSheetRef.current.open()}
             >
               <Image
                 source={require("../assets/avatar.jpg")}
@@ -228,59 +228,59 @@ const Profile = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <BottomSheet
-        ref={avatarSheetRef}
-        index={-1}
-        snapPoints={avatarSnapPoints}
-        enablePanDownToClose
-        overDragResistanceFactor={10}
-        backgroundStyle={{}}
-        handleStyle={{
-          borderWidth: 2,
-          borderBottomWidth: 0,
-          borderColor: "#d1d5db",
-          borderTopLeftRadius: 50,
-          borderTopRightRadius: 50,
-        }}
-        style={{}}
-        handleIndicatorStyle={{ backgroundColor: "#9ca3af", width: 40 }}
-      >
-        <View className="h-[100%] w-full p-4">
-          <TouchableOpacity
-            onPress={() => {
-              setImageModalVisible(true);
-              avatarSheetRef.current.close();
-            }}
-            activeOpacity={0.6}
-            className="flex-row items-center gap-3 mb-4"
-          >
-            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
-              <Ionicons
-                name="person-circle-outline"
-                color="#111827"
-                size={30}
-              />
-            </View>
-            <Text className="text-lg font-semibold text-gray-900">
-              View Profile Picture
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {
-              avatarSheetRef.current.close();
-            }}
-            className="flex-row items-center gap-3 mb-4"
-          >
-            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
-              <Ionicons name="images" color="#111827" size={24} />
-            </View>
-            <Text className="text-lg font-semibold text-gray-900">
-              Select Profile Picture
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </BottomSheet>
+
+      {!imageModalVisible && (
+        <RBSheet
+          ref={avatarSheetRef}
+          closeOnDragDown={true}
+          closeOnPressMask={true}
+          customStyles={{
+            wrapper: {
+              backgroundColor: "rgba(0,0,0,.35)",
+            },
+            draggableIcon: {
+              backgroundColor: "#ccc",
+            },
+            container: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
+          }}
+        >
+          <View className="h-[100%] w-full p-4">
+            <TouchableOpacity
+              onPress={() => {
+                setImageModalVisible(true);
+                avatarSheetRef.current.close();
+              }}
+              activeOpacity={0.6}
+              className="flex-row items-center gap-3 mb-4"
+            >
+              <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+                <Ionicons
+                  name="person-circle-outline"
+                  color="#111827"
+                  size={30}
+                />
+              </View>
+              <Text className="text-lg font-semibold text-gray-900">
+                View Profile Picture
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.6}
+              onPress={() => {
+                avatarSheetRef.current.close();
+              }}
+              className="flex-row items-center gap-3 mb-4"
+            >
+              <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+                <Ionicons name="images" color="#111827" size={24} />
+              </View>
+              <Text className="text-lg font-semibold text-gray-900">
+                Select Profile Picture
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </RBSheet>
+      )}
     </SafeAreaView>
   );
 };
