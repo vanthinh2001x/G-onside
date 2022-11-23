@@ -15,7 +15,7 @@ import GroupScreen from "../screens/GroupScreen";
 import HomeScreen from "../screens/HomeScreen";
 import LoadingScreen from "../screens/LoadingScreen";
 import LoginScreen from "../screens/LoginScreen";
-import Messages from "../screens/Messages";
+import Applications from "../screens/Applications";
 import Notifications from "../screens/Notifications";
 import Profile from "../screens/Profile";
 import SignupScreen from "../screens/SignupScreen";
@@ -83,7 +83,7 @@ const AppNavigation = () => {
       screenOptions={config}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Messages" component={Messages} />
+      <Tab.Screen name="Applications" component={Applications} />
       <Tab.Screen name="Group" component={GroupScreen} />
       <Tab.Screen name="Notifications" component={Notifications} />
       <Tab.Screen name="Profile" component={Profile} />

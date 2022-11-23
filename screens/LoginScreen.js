@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Image, SafeAreaView, Text, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../app/features/userSlice";
-import Button from "../components/Button";
+import ButtonPrimary from "../components/ButtonPrimary";
 import Input from "../components/Input";
 function LoginScreen({ navigation }) {
   const translate = useSelector((state) => state.translate.translateData);
@@ -52,7 +52,7 @@ function LoginScreen({ navigation }) {
           />
         </View>
         <View className="mb-4">
-          <Button
+          <ButtonPrimary
             title={translate.g_on_login_nut_dang_nhap}
             onPress={handleSubmit}
             bgColor="#3b82f6"

@@ -7,7 +7,7 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
-import Button from "../components/Button";
+import Button from "../components/ButtonPrimary";
 import Input from "../components/Input";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 const ChangePasswordScreen = ({ navigation }) => {

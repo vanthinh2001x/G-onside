@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from "react-native";
 
-const Button = ({ title, onPress = () => {}, bgColor, textColor }) => {
+const ButtonPrimary = ({ title, onPress = () => {}, bgColor, textColor }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -15,4 +15,4 @@ const Button = ({ title, onPress = () => {}, bgColor, textColor }) => {
   );
 };
 
-export default Button;
+export default ButtonPrimary;

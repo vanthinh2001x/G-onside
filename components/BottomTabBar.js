@@ -11,10 +11,10 @@ const tabBarData = [
     routeName: "Home",
   },
   {
-    name: "Messages",
-    icon: "ios-chatbox-outline",
-    iconActive: "ios-chatbox",
-    routeName: "Messages",
+    name: "Applications",
+    icon: "layers-outline",
+    iconActive: "layers",
+    routeName: "Applications",
   },
   {
     name: "Group",

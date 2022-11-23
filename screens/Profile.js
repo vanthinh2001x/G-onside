@@ -72,7 +72,6 @@ const Profile = ({ navigation }) => {
   ];
 
   const avatarSheetRef = useRef();
-  const avatarSnapPoints = useMemo(() => ["30%"], []);
   return (
     <SafeAreaView
       className="bg-white w-full h-full "
@@ -99,7 +98,6 @@ const Profile = ({ navigation }) => {
           <View>
             <TouchableOpacity
               activeOpacity={0.9}
-              // onPress={() => setImageModalVisible(true)}
               onPress={() => avatarSheetRef.current.open()}
             >
               <Image

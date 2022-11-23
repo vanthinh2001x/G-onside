@@ -1,5 +1,5 @@
 import { Image, SafeAreaView, Text, View } from "react-native";
-import Button from "../components/Button";
+import Button from "../components/ButtonPrimary";
 import Input from "../components/Input";
 
 function SignupScreen({ navigation }) {
