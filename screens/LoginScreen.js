@@ -1,6 +1,14 @@
 import { unwrapResult } from "@reduxjs/toolkit";
 import { useState } from "react";
-import { Image, SafeAreaView, Text, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  Text,
+  View,
+} from "react-native";
+import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../app/features/userSlice";
 import ButtonPrimary from "../components/ButtonPrimary";
@@ -28,17 +36,22 @@ function LoginScreen({ navigation }) {
   };
   return (
     <SafeAreaView className="pt-10 px-3 bg-white h-full">
-      <View className="px-5 pt-6">
-        <View className="items-center">
+      <KeyboardAvoidingView className="px-5 pb-2" behavior="position">
+        <TouchableWithoutFeedback
+          className="items-center py-8"
+          onPress={() => {
+            Keyboard.dismiss();
+          }}
+        >
           <Image className="h-36 w-36" source={require("../assets/Gnet.jpg")} />
           <Text className="text-blue-500 text-4xl font-bold">
             {translate.g_on_login_tieu_de_trang_dang_nhap}
           </Text>
-          <Text className="text-Slate-900 text-base font-medium mt-2 mb-10">
+          <Text className="text-Slate-900 text-base font-medium mt-2 ">
             {translate.g_on_login_noi_dung_trang_dang_nhap}
           </Text>
-        </View>
-        <View style={{ marginVertical: 20 }}>
+        </TouchableWithoutFeedback>
+        <View className="pb-5">
           <Input
             onChangeText={(text) => handleInputChange(text, "email")}
             iconName="email-outline"
@@ -51,15 +64,17 @@ function LoginScreen({ navigation }) {
             password={true}
           />
         </View>
-        <View className="mb-4">
+        <View>
           <ButtonPrimary
             title={translate.g_on_login_nut_dang_nhap}
-            onPress={handleSubmit}
+            onPress={() => {
+              handleSubmit();
+              Keyboard.dismiss();
+            }}
             bgColor="#3b82f6"
             textColor="#fff"
           />
-        </View>
-        {/* <Text className="text-gray-500 font-medium text-center text-base">
+          {/* <Text className="text-gray-500 font-medium text-center text-base">
           Don't have account?{" "}
           <Text
             onPress={() => navigation.navigate("Signup")}
@@ -68,10 +83,11 @@ function LoginScreen({ navigation }) {
             Register here
           </Text>
         </Text> */}
-        <Text className="text-blue-500 font-medium text-center text-base">
-          {translate.g_on_login_quen_mat_khau}
-        </Text>
-      </View>
+          <Text className="text-blue-500 font-medium text-center text-base mt-4">
+            {translate.g_on_login_quen_mat_khau}
+          </Text>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
