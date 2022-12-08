@@ -30,14 +30,16 @@
     "react-native-crypto-js": "^1.0.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-image-zoom-viewer": "^3.0.1",
+    "react-native-modal": "^13.0.1",
     "react-native-modal-datetime-picker": "^14.0.0",
+    "react-native-pager-view": "5.4.24",
     "react-native-raw-bottom-sheet": "^2.2.0",
     "react-native-reanimated": "^2.9.1",
+    "react-native-swipe-close-image": "^1.0.7",
     "react-native-tab-view": "^3.3.0",
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.4",
-    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
-    "react-native-pager-view": "5.4.24"
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -59,7 +59,7 @@ const BottomTabBar = ({ navigation, state }) => {
 
   return (
     <View>
-      <View className="flex-row h-12 items-center justify-between bg-white border-t-[#e9ecf3] border-t-[0.4px]">
+      <View className="flex-row h-12 items-center justify-between bg-white border-t-[#e9ecf3] border-t-[0.8px]">
         {tabBarData.map(renderTabBarItem)}
       </View>
     </View>
