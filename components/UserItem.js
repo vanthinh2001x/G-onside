@@ -1,19 +1,9 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Button,
-  Modal as ModalImage,
-  Dimensions,
-} from "react-native";
 import React, { useState } from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
+import ImageViewer from "react-native-image-zoom-viewer";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import ImageViewer from "react-native-image-zoom-viewer";
-
-const { height, width } = Dimensions.get("window");
 
 const UserItem = ({ user }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -32,7 +22,7 @@ const UserItem = ({ user }) => {
   return (
     <>
       <TouchableOpacity
-        activeOpacity={0.8}
+        activeOpacity={0.5}
         className="flex-row items-center gap-4 mb-4"
         onPress={toggleModal}
       >

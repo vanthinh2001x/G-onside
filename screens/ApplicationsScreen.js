@@ -1,12 +1,12 @@
 import { View, Text, SafeAreaView } from "react-native";
 import React from "react";
 
-const Applications = () => {
+const ApplicationsScreen = () => {
   return (
     <View>
-      <Text>Applications</Text>
+      <Text>ApplicationsScreen</Text>
     </View>
   );
 };
 
-export default Applications;
+export default ApplicationsScreen;
