@@ -1,6 +1,7 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useMemo, useRef, useState } from "react";
+import { useCallback } from "react";
 import {
   Image,
   Modal,
@@ -14,12 +15,16 @@ import ImageViewer from "react-native-image-zoom-viewer";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPhotoVisible } from "../app/features/photoModalSlice";
 import { logout } from "../app/features/userSlice";
+import PhotoDetailModal from "../components/PhotoDetailModal";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const Profile = ({ navigation }) => {
+  const imgUrl =
+    "https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/273174554_1263941260682708_713864326679647282_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=xli7ONftv8kAX_lE3nL&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfArMkv-fq29LtzcmsB4boxNchaJNZDQK-9YWcRbkU_-BA&oe=6397FBD2";
   const dispatch = useDispatch();
   const { showActionSheetWithOptions } = useActionSheet();
   const handleLogout = async () => {
@@ -72,6 +77,18 @@ const Profile = ({ navigation }) => {
   ];
 
   const avatarSheetRef = useRef();
+  const imageRef = useRef();
+  const onImagePress = useCallback(() => {
+    imageRef.current?.measure((x, y, width, height, pageX, pageY) => {
+      console.log("imgPress: ", { x, y, width, height, pageX, pageY });
+      const img = { url: imgUrl };
+      const specs = { x, y, width, height, pageX, pageY, borderRadius: 42 };
+      dispatch(setPhotoVisible({ img, specs }));
+    });
+  }, []);
+  const { isPhotoVisible, photoData } = useSelector(
+    (state) => state.photoModal
+  );
   return (
     <SafeAreaView
       className="bg-white w-full h-full "
@@ -101,7 +118,8 @@ const Profile = ({ navigation }) => {
               onPress={() => avatarSheetRef.current.open()}
             >
               <Image
-                source={require("../assets/avatar.jpg")}
+                ref={imageRef}
+                source={{ uri: imgUrl }}
                 className="h-[84px] w-[84px] rounded-full mr-6 border-4 border-blue-200"
               />
             </TouchableOpacity>
@@ -245,7 +263,8 @@ const Profile = ({ navigation }) => {
           <View className="h-[100%] w-full p-4">
             <TouchableOpacity
               onPress={() => {
-                setImageModalVisible(true);
+                // setImageModalVisible(true);
+                onImagePress();
                 avatarSheetRef.current.close();
               }}
               activeOpacity={0.6}
@@ -279,6 +298,7 @@ const Profile = ({ navigation }) => {
           </View>
         </RBSheet>
       )}
+      {isPhotoVisible && <PhotoDetailModal />}
     </SafeAreaView>
   );
 };

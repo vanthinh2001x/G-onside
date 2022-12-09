@@ -23,6 +23,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoInvisible } from "../app/features/photoModalSlice";
+import { Portal } from "@gorhom/portal";
 
 const { width, height } = Dimensions.get("window");
 
@@ -39,7 +40,6 @@ const PhotoDetailModal = () => {
     });
   }, []);
 
-  console.log(isPhotoVisible, img, specs);
   const anim = useSharedValue(0);
   const animY = useSharedValue(0);
   const animScale = useSharedValue(1);
@@ -112,7 +112,11 @@ const PhotoDetailModal = () => {
       top: interpolate(anim.value, [0, 1], [specs.pageY, targetY]),
       width: interpolate(anim.value, [0, 1], [specs.width, targetWidth]),
       height: interpolate(anim.value, [0, 1], [specs.height, targetHeight]),
-      borderRadius: interpolate(anim.value, [0, 1], [52, 0]),
+      borderRadius: interpolate(
+        anim.value,
+        [0, 1],
+        [specs.borderRadius || 5, 0]
+      ),
 
       transform: [
         {
@@ -137,65 +141,61 @@ const PhotoDetailModal = () => {
     };
   });
   return (
-    <Modal
-      hardwareAccelerated={true}
-      visible={isPhotoVisible}
-      transparent={true}
-      onRequestClose={() => {}}
-      supportedOrientations={[
-        "portrait",
-        "portrait-upside-down",
-        "landscape",
-        "landscape-left",
-        "landscape-right",
-      ]}
-    >
-      <PinchGestureHandler onGestureEvent={pinchGestureHandler}>
-        <Animated.View
-          style={{
-            ...StyleSheet.absoluteFillObject,
-            zIndex: isPhotoVisible ? 9999999999 : -99,
-          }}
-        >
-          <PanGestureHandler onGestureEvent={panGestureHandler}>
-            <Animated.View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                zIndex: isPhotoVisible ? 99 : -99,
-              }}
-            >
-              {isPhotoVisible && (
-                <Animated.View style={[styles.header, opacityStyle]}>
-                  <TouchableOpacity
+    <React.Fragment>
+      <Portal>
+        <PinchGestureHandler onGestureEvent={pinchGestureHandler}>
+          <Animated.View
+            style={{
+              ...StyleSheet.absoluteFillObject,
+              zIndex: isPhotoVisible ? 9999999999 : -99,
+            }}
+          >
+            <PanGestureHandler onGestureEvent={panGestureHandler}>
+              <Animated.View
+                style={{
+                  ...StyleSheet.absoluteFillObject,
+                  zIndex: isPhotoVisible ? 99 : -99,
+                }}
+              >
+                {isPhotoVisible && (
+                  <Animated.View style={[styles.header, opacityStyle]}>
+                    <TouchableOpacity
+                      onPress={onBackPress}
+                      style={styles.btnHeader}
+                    >
+                      <Ionicons name="close-outline" size={28} color="#222" />
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={() => {}}
+                      style={styles.btnHeader}
+                    >
+                      <Ionicons name="heart" size={28} color="#222" />
+                    </TouchableOpacity>
+                  </Animated.View>
+                )}
+                <Animated.View style={[styles.backdrop, opacityStyle]}>
+                  <Pressable
                     onPress={onBackPress}
-                    style={styles.btnHeader}
-                  >
-                    <Ionicons name="close-outline" size={28} color="#222" />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => {}} style={styles.btnHeader}>
-                    <Ionicons name="heart" size={28} color="#222" />
-                  </TouchableOpacity>
-                </Animated.View>
-              )}
-              <Animated.View style={[styles.backdrop, opacityStyle]}>
-                <Pressable onPress={onBackPress} style={styles.backdropInner} />
-              </Animated.View>
-              {isPhotoVisible && (
-                <Animated.View
-                  style={[styles.imageContainer, imageContainerStyle]}
-                >
-                  <Image
-                    resizeMode="cover"
-                    source={{ uri: img.url }}
-                    style={{ height: "100%", width: "100%" }}
+                    style={styles.backdropInner}
                   />
                 </Animated.View>
-              )}
-            </Animated.View>
-          </PanGestureHandler>
-        </Animated.View>
-      </PinchGestureHandler>
-    </Modal>
+                {isPhotoVisible && (
+                  <Animated.View
+                    style={[{ overflow: "hidden" }, imageContainerStyle]}
+                  >
+                    <Image
+                      resizeMode="cover"
+                      source={{ uri: img.url }}
+                      style={{ height: "100%", width: "100%" }}
+                    />
+                  </Animated.View>
+                )}
+              </Animated.View>
+            </PanGestureHandler>
+          </Animated.View>
+        </PinchGestureHandler>
+      </Portal>
+    </React.Fragment>
   );
 };
 
@@ -226,7 +226,6 @@ const styles = StyleSheet.create({
     zIndex: -1,
     backgroundColor: "rgba(0,0,0,0.95)",
   },
-  imageContainer: {},
   authorContainer: {
     position: "absolute",
     bottom: 0,
