@@ -1,12 +1,11 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { Portal } from "@gorhom/portal";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Dimensions,
   Image,
-  Modal,
   Pressable,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -24,7 +23,6 @@ import Animated, {
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoInvisible } from "../app/features/photoModalSlice";
-import { Portal } from "@gorhom/portal";
 
 const { width, height } = Dimensions.get("window");
 
@@ -141,15 +139,6 @@ const PhotoDetailModal = () => {
       ],
     };
   });
-  {
-    /* <TouchableOpacity
-                  className="absolute top-4 right-6 z-10"
-                  activeOpacity={0.5}
-                  onPress={() => {}}
-                >
-                  <Ionicons name="download-outline" size={28} color="#fff" />
-                </TouchableOpacity> */
-  }
   return (
     <React.Fragment>
       <Portal>
