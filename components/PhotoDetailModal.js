@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import React, { useCallback, useEffect, useState } from "react";
 import {
   Dimensions,
@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import {
   PanGestureHandler,
@@ -172,14 +173,19 @@ const PhotoDetailModal = () => {
                       onPress={onBackPress}
                       style={styles.btnHeader}
                     >
-                      <Ionicons name="close-outline" size={28} color="#222" />
+                      <AntDesign name="close" size={20} color="#222" />
                     </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => {}}
-                      style={styles.btnHeader}
-                    >
-                      <Ionicons name="heart" size={28} color="#222" />
-                    </TouchableOpacity>
+                    <View style={{ flexDirection: "row" }}>
+                      <TouchableOpacity onPress={() => {}}>
+                        <AntDesign name="sharealt" size={22} color="#fff" />
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {}}
+                        style={{ marginLeft: 20 }}
+                      >
+                        <AntDesign name="download" size={22} color="#fff" />
+                      </TouchableOpacity>
+                    </View>
                   </Animated.View>
                 )}
                 <Animated.View style={[styles.backdrop, opacityStyle]}>
@@ -212,19 +218,19 @@ export default PhotoDetailModal;
 
 const styles = StyleSheet.create({
   btnHeader: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "#fff",
   },
   header: {
     position: "absolute",
     left: 0,
     right: 0,
-    top: 40,
-    paddingHorizontal: 20,
+    top: 20,
+    paddingHorizontal: 24,
     zIndex: 999,
     flexDirection: "row",
     alignItems: "center",
