@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
   Text,
@@ -33,62 +34,64 @@ const EditProfileScreen = ({ navigation }) => {
           <Text className="text-base font-semibold text-gray-900">Save</Text>
         </TouchableOpacity>
       </View>
-      <ScrollView
-        pagingEnabled
-        showsVerticalScrollIndicator={false}
-        className="px-6"
-      >
-        <View className="mt-8">
-          <View className="flex-row items-center gap-4">
-            <View className="flex-1">
-              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-                First Name
-              </Text>
-              <Input placeholder="First Name" />
+      <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+        <ScrollView
+          pagingEnabled
+          showsVerticalScrollIndicator={false}
+          className="px-6"
+        >
+          <View className="mt-8">
+            <View className="flex-row items-center gap-4">
+              <View className="flex-1">
+                <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                  First Name
+                </Text>
+                <Input placeholder="First Name" />
+              </View>
+              <View className="flex-1">
+                <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                  Last Name
+                </Text>
+                <Input placeholder="Last Name" />
+              </View>
             </View>
-            <View className="flex-1">
+            <View>
               <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-                Last Name
+                Email
               </Text>
-              <Input placeholder="Last Name" />
+              <Input iconName="email-outline" placeholder="Email" />
+            </View>
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                UserName
+              </Text>
+              <Input iconName="account-outline" placeholder="UserName" />
+            </View>
+            <View className="mb-4">
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-3">
+                Day Of Birth
+              </Text>
+              <InputDate date={date} onConfirmDate={handleConfirmDate} />
+            </View>
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                Phone
+              </Text>
+              <Input
+                iconName="phone-outline"
+                placeholder="Phone"
+                keyboardType="numeric"
+              />
+            </View>
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                Address
+              </Text>
+              <Input iconName="map-marker-outline" placeholder="Address" />
             </View>
           </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              Email
-            </Text>
-            <Input iconName="email-outline" placeholder="Email" />
-          </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              UserName
-            </Text>
-            <Input iconName="account-outline" placeholder="UserName" />
-          </View>
-          <View className="mb-4">
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-3">
-              Day Of Birth
-            </Text>
-            <InputDate date={date} onConfirmDate={handleConfirmDate} />
-          </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              Phone
-            </Text>
-            <Input
-              iconName="phone-outline"
-              placeholder="Phone"
-              keyboardType="numeric"
-            />
-          </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              Address
-            </Text>
-            <Input iconName="map-marker-outline" placeholder="Address" />
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

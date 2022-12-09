@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  KeyboardAvoidingView,
   SafeAreaView,
   ScrollView,
   Text,
@@ -35,37 +36,43 @@ const ChangePasswordScreen = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         className="px-6"
       >
-        <View className="mt-8">
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              Current password
-            </Text>
-            <Input iconName="lock-outline" placeholder="Current password" />
+        <KeyboardAvoidingView
+          behavior="position"
+          contentContainerStyle={{ paddingBottom: 90 }}
+        >
+          <View className="mt-8">
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                Current password
+              </Text>
+              <Input iconName="lock-outline" placeholder="Current password" />
+            </View>
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                New password
+              </Text>
+              <Input iconName="key-outline" placeholder="New password" />
+            </View>
+            <View>
+              <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
+                Retype new password
+              </Text>
+              <Input iconName="key-outline" placeholder="Retype new password" />
+            </View>
+
+            <View className="mt-4">
+              <Button title={"Update"} bgColor="#3b82f6" textColor="#fff" />
+            </View>
+            <View className="mt-4">
+              <Button
+                title={"Cancel"}
+                onPress={() => navigation.goBack()}
+                bgColor="#d1d5db"
+                textColor="#111827"
+              />
+            </View>
           </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              New password
-            </Text>
-            <Input iconName="key-outline" placeholder="New password" />
-          </View>
-          <View>
-            <Text className="text-base font-medium text-gray-900 pl-1 mb-1">
-              Retype new password
-            </Text>
-            <Input iconName="key-outline" placeholder="Retype new password" />
-          </View>
-          <View className="mt-4">
-            <Button title={"Update"} bgColor="#3b82f6" textColor="#fff" />
-          </View>
-          <View className="mt-4">
-            <Button
-              title={"Cancel"}
-              onPress={() => navigation.goBack()}
-              bgColor="#d1d5db"
-              textColor="#111827"
-            />
-          </View>
-        </View>
+        </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>
   );

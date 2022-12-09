@@ -1,8 +1,16 @@
-import { View, Text, SafeAreaView, StatusBar, ScrollView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StatusBar,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import GroupNavigation from "../navigation/GroupNavigation";
 import SearchBar from "../components/SearchBar";
 import UserItem from "../components/UserItem";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Applications = () => {
   const UsersTap = () => {
@@ -129,12 +137,20 @@ const Applications = () => {
 
   return (
     <>
-      <View
-        style={{ paddingTop: 20 }}
-        className="bg-white h-[70px] border-b-[1px] border-b-gray-200 flex justify-center items-center"
-      >
-        <Text className="text-xl font-semibold text-gray-900">Users</Text>
-      </View>
+      <SafeAreaView className="bg-white">
+        <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+          <Text className="text-xl font-bold text-gray-900">Users</Text>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {}}
+            className="absolute right-6"
+          >
+            <Text className="text-base font-semibold">
+              <Ionicons name="search" size={26} />
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
       <GroupNavigation UsersTap={UsersTap} GroupsTab={GroupsTab} />
     </>
   );

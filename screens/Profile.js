@@ -79,7 +79,7 @@ const Profile = ({ navigation }) => {
       style={AndroidSafeArea.AndroidSafeArea}
     >
       <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-        <Text className="text-xl font-semibold text-gray-900">Profile</Text>
+        <Text className="text-xl font-bold text-gray-900">Profile</Text>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.navigate("EditProfile")}
