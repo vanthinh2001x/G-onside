@@ -9,20 +9,20 @@ const GroupNavigation = ({ UsersTap, GroupsTab }) => {
       screenOptions={{
         tabBarLabelStyle: {
           textTransform: "none",
-          fontSize: 14,
-          fontWeight: "700",
+          fontSize: 17,
+          fontWeight: "600",
         },
         tabBarPressColor: "transparent",
-        tabBarActiveTintColor: "#1876f2",
-        tabBarInactiveTintColor: "#4b5563",
+        tabBarActiveTintColor: "#111827",
+        tabBarInactiveTintColor: "#9ca3af",
         tabBarStyle: {
           backgroundColor: "white",
-          height: 44,
+          height: 52,
           elevation: 0,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: "#1876f2",
-          height: 3,
+          backgroundColor: "#3b82f6",
+          height: 2.5,
         },
       }}
     >

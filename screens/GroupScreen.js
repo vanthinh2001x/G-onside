@@ -1,16 +1,9 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  StatusBar,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
 import React from "react";
-import GroupNavigation from "../navigation/GroupNavigation";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import SearchBar from "../components/SearchBar";
 import UserItem from "../components/UserItem";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import GroupNavigation from "../navigation/GroupNavigation";
 
 const Applications = () => {
   const UsersTap = () => {
@@ -117,10 +110,7 @@ const Applications = () => {
       },
     ];
     return (
-      <View className="mt-2 mb-8 bg-white p-4">
-        <View className="pb-4">
-          <SearchBar onSearchChange={() => {}} inputPlaceHolder="Search User" />
-        </View>
+      <View className="bg-white px-4">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             {users.map((user, index) => (
@@ -137,9 +127,9 @@ const Applications = () => {
 
   return (
     <>
-      <SafeAreaView className="bg-white">
-        <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-          <Text className="text-xl font-bold text-gray-900">Users</Text>
+      <View className="bg-white pt-5">
+        <View className="relative flex-row items-center justify-center p-4">
+          <Text className="text-2xl font-bold text-gray-900">Users</Text>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {}}
@@ -150,7 +140,13 @@ const Applications = () => {
             </Text>
           </TouchableOpacity>
         </View>
-      </SafeAreaView>
+        <View className="px-4 mb-2">
+          <SearchBar
+            onSearchChange={() => {}}
+            inputPlaceHolder="Search for user"
+          />
+        </View>
+      </View>
       <GroupNavigation UsersTap={UsersTap} GroupsTab={GroupsTab} />
     </>
   );

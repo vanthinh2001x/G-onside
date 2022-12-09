@@ -18,7 +18,6 @@ const { height, width } = Dimensions.get("window");
 const UserItem = ({ user }) => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [imageModalVisible, setImageModalVisible] = useState(false);
-  console.log(isModalVisible, imageModalVisible);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
@@ -63,8 +62,6 @@ const UserItem = ({ user }) => {
           <TouchableOpacity
             activeOpacity={0.7}
             onPress={() => {
-              console.log("press");
-              console.log(imageModalVisible);
               setImageModalVisible(true);
             }}
           >

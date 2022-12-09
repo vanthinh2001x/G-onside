@@ -66,7 +66,7 @@ const Profile = ({ navigation }) => {
     imageRef.current?.measure((x, y, width, height, pageX, pageY) => {
       console.log("imgPress: ", { x, y, width, height, pageX, pageY });
       const img = { url: imgUrl };
-      const specs = { x, y, width, height, pageX, pageY, borderRadius: 42 };
+      const specs = { x, y, width, height, pageX, pageY, borderRadius: 46 };
       dispatch(setPhotoVisible({ img, specs }));
     });
   }, []);
@@ -79,7 +79,7 @@ const Profile = ({ navigation }) => {
       style={AndroidSafeArea.AndroidSafeArea}
     >
       <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-        <Text className="text-xl font-bold text-gray-900">Profile</Text>
+        <Text className="font-bold text-2xl text-gray-900">Profile</Text>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.navigate("EditProfile")}
@@ -104,7 +104,7 @@ const Profile = ({ navigation }) => {
               <Image
                 ref={imageRef}
                 source={{ uri: imgUrl }}
-                className="h-[84px] w-[84px] rounded-full mr-6 border-4 border-blue-200"
+                className="h-[92px] w-[92px] rounded-full mr-6 border-4 border-blue-200 object-cover"
               />
             </TouchableOpacity>
           </View>
