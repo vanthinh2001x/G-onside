@@ -21,7 +21,7 @@ import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const Profile = ({ navigation }) => {
   const imgUrl =
-    "https://scontent.fsgn5-2.fna.fbcdn.net/v/t39.30808-6/273174554_1263941260682708_713864326679647282_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=xli7ONftv8kAX_lE3nL&_nc_ht=scontent.fsgn5-2.fna&oh=00_AfArMkv-fq29LtzcmsB4boxNchaJNZDQK-9YWcRbkU_-BA&oe=6397FBD2";
+    "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg";
   const dispatch = useDispatch();
   const { showActionSheetWithOptions } = useActionSheet();
   const handleLogout = async () => {

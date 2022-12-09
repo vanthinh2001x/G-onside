@@ -5,7 +5,6 @@ import {
   Dimensions,
   Image,
   Pressable,
-  StyleSheet,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -144,53 +143,52 @@ const PhotoDetailModal = () => {
       <Portal>
         <PinchGestureHandler onGestureEvent={pinchGestureHandler}>
           <Animated.View
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              zIndex: isPhotoVisible ? 9999999999 : -99,
-            }}
+            className={`absolute left-0 right-0 top-0 bottom-0 ${
+              isPhotoVisible ? "z-50" : "z-0"
+            }`}
           >
             <PanGestureHandler onGestureEvent={panGestureHandler}>
               <Animated.View
-                style={{
-                  ...StyleSheet.absoluteFillObject,
-                  zIndex: isPhotoVisible ? 99 : -99,
-                }}
+                className={`absolute left-0 right-0 top-0 bottom-0 ${
+                  isPhotoVisible ? "z-10" : "z-0"
+                }`}
               >
                 {isPhotoVisible && (
-                  <Animated.View style={[styles.header, opacityStyle]}>
+                  <Animated.View
+                    className="absolute left-0 right-0 top-5 z-10 flex-row items-center justify-between px-6"
+                    style={opacityStyle}
+                  >
                     <TouchableOpacity
                       onPress={onBackPress}
-                      style={styles.btnHeader}
+                      className="w-7 h-7 rounded-full justify-center items-center bg-white"
                     >
                       <AntDesign name="close" size={20} color="#222" />
                     </TouchableOpacity>
-                    <View style={{ flexDirection: "row" }}>
+                    <View className="flex-row">
                       <TouchableOpacity onPress={() => {}}>
                         <AntDesign name="sharealt" size={22} color="#fff" />
                       </TouchableOpacity>
-                      <TouchableOpacity
-                        onPress={() => {}}
-                        style={{ marginLeft: 20 }}
-                      >
+                      <TouchableOpacity onPress={() => {}} className="ml-5">
                         <AntDesign name="download" size={22} color="#fff" />
                       </TouchableOpacity>
                     </View>
                   </Animated.View>
                 )}
-                <Animated.View style={[styles.backdrop, opacityStyle]}>
-                  <Pressable
-                    onPress={onBackPress}
-                    style={styles.backdropInner}
-                  />
+                <Animated.View
+                  style={opacityStyle}
+                  className="absolute left-0 right-0 top-0 bottom-0 z-0 bg-black"
+                >
+                  <Pressable onPress={onBackPress} />
                 </Animated.View>
                 {isPhotoVisible && (
                   <Animated.View
-                    style={[{ overflow: "hidden" }, imageContainerStyle]}
+                    style={imageContainerStyle}
+                    className="overflow-hidden"
                   >
                     <Image
                       resizeMode="cover"
                       source={{ uri: img.url }}
-                      style={{ height: "100%", width: "100%" }}
+                      className="h-[100%] w-[100%]"
                     />
                   </Animated.View>
                 )}
@@ -204,48 +202,3 @@ const PhotoDetailModal = () => {
 };
 
 export default PhotoDetailModal;
-
-const styles = StyleSheet.create({
-  btnHeader: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  header: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: 20,
-    paddingHorizontal: 24,
-    zIndex: 999,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  backdrop: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: -1,
-    backgroundColor: "rgba(0,0,0,0.95)",
-  },
-  authorContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    padding: 20,
-    paddingTop: 20,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "700",
-    color: "#fff",
-  },
-  description: {
-    fontSize: 12,
-    fontWeight: "400",
-    color: "#fff",
-  },
-});
