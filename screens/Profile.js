@@ -1,17 +1,14 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useMemo, useRef, useState } from "react";
-import { useCallback } from "react";
+import React, { useCallback, useRef } from "react";
 import {
   Image,
-  Modal,
   SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import ImageViewer from "react-native-image-zoom-viewer";
 import RBSheet from "react-native-raw-bottom-sheet";
 import { Ionicons } from "react-native-vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -36,9 +33,6 @@ const Profile = ({ navigation }) => {
     if (!userExist) {
       navigation.navigate("AuthStack");
     }
-  };
-  const handleClearTranslate = async () => {
-    await AsyncStorage.removeItem(StorageKeys.TRANSLATE);
   };
   const logoutPress = () => {
     const options = ["Logout", "Cancel"];
@@ -65,16 +59,6 @@ const Profile = ({ navigation }) => {
       }
     );
   };
-
-  const [imageModalVisible, setImageModalVisible] = useState(false);
-  const images = [
-    {
-      url: "",
-      props: {
-        source: require("../assets/avatar.jpg"),
-      },
-    },
-  ];
 
   const avatarSheetRef = useRef();
   const imageRef = useRef();
@@ -123,35 +107,6 @@ const Profile = ({ navigation }) => {
                 className="h-[84px] w-[84px] rounded-full mr-6 border-4 border-blue-200"
               />
             </TouchableOpacity>
-            <View className="relative">
-              <Modal
-                transparent={true}
-                animationType="fade"
-                visible={imageModalVisible}
-                className="absolute"
-              >
-                <ImageViewer
-                  imageUrls={images}
-                  renderIndicator={() => ""}
-                  onSwipeDown={() => setImageModalVisible(false)}
-                  enableSwipeDown={true}
-                />
-                <TouchableOpacity
-                  className="absolute top-4 left-6 z-10 "
-                  activeOpacity={0.5}
-                  onPress={() => setImageModalVisible(false)}
-                >
-                  <Ionicons name="close-circle" size={28} color="#fff" />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  className="absolute top-4 right-6 z-10"
-                  activeOpacity={0.5}
-                  onPress={() => {}}
-                >
-                  <Ionicons name="download-outline" size={28} color="#fff" />
-                </TouchableOpacity>
-              </Modal>
-            </View>
           </View>
           <View>
             <Text className="text-2xl font-bold text-slate-800 pb-[4px]">
@@ -245,59 +200,56 @@ const Profile = ({ navigation }) => {
         </View>
       </ScrollView>
 
-      {!imageModalVisible && (
-        <RBSheet
-          ref={avatarSheetRef}
-          closeOnDragDown={true}
-          closeOnPressMask={true}
-          customStyles={{
-            wrapper: {
-              backgroundColor: "rgba(0,0,0,.35)",
-            },
-            draggableIcon: {
-              backgroundColor: "#ccc",
-            },
-            container: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
-          }}
-        >
-          <View className="h-[100%] w-full p-4">
-            <TouchableOpacity
-              onPress={() => {
-                // setImageModalVisible(true);
-                onImagePress();
-                avatarSheetRef.current.close();
-              }}
-              activeOpacity={0.6}
-              className="flex-row items-center gap-3 mb-4"
-            >
-              <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
-                <Ionicons
-                  name="person-circle-outline"
-                  color="#111827"
-                  size={30}
-                />
-              </View>
-              <Text className="text-lg font-semibold text-gray-900">
-                View Profile Picture
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.6}
-              onPress={() => {
-                avatarSheetRef.current.close();
-              }}
-              className="flex-row items-center gap-3 mb-4"
-            >
-              <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
-                <Ionicons name="images" color="#111827" size={24} />
-              </View>
-              <Text className="text-lg font-semibold text-gray-900">
-                Select Profile Picture
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </RBSheet>
-      )}
+      <RBSheet
+        ref={avatarSheetRef}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "rgba(0,0,0,.35)",
+          },
+          draggableIcon: {
+            backgroundColor: "#ccc",
+          },
+          container: { borderTopLeftRadius: 20, borderTopRightRadius: 20 },
+        }}
+      >
+        <View className="h-[100%] w-full p-4">
+          <TouchableOpacity
+            onPress={() => {
+              onImagePress();
+              avatarSheetRef.current.close();
+            }}
+            activeOpacity={0.6}
+            className="flex-row items-center gap-3 mb-4"
+          >
+            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+              <Ionicons
+                name="person-circle-outline"
+                color="#111827"
+                size={30}
+              />
+            </View>
+            <Text className="text-lg font-semibold text-gray-900">
+              View Profile Picture
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            onPress={() => {
+              avatarSheetRef.current.close();
+            }}
+            className="flex-row items-center gap-3 mb-4"
+          >
+            <View className="flex items-center justify-center rounded-full bg-gray-200 w-10 h-10">
+              <Ionicons name="images" color="#111827" size={24} />
+            </View>
+            <Text className="text-lg font-semibold text-gray-900">
+              Select Profile Picture
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </RBSheet>
       {isPhotoVisible && <PhotoDetailModal />}
     </SafeAreaView>
   );

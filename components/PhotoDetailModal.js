@@ -140,6 +140,15 @@ const PhotoDetailModal = () => {
       ],
     };
   });
+  {
+    /* <TouchableOpacity
+                  className="absolute top-4 right-6 z-10"
+                  activeOpacity={0.5}
+                  onPress={() => {}}
+                >
+                  <Ionicons name="download-outline" size={28} color="#fff" />
+                </TouchableOpacity> */
+  }
   return (
     <React.Fragment>
       <Portal>
