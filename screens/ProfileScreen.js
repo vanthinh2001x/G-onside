@@ -19,7 +19,7 @@ import PhotoDetailModal from "../components/PhotoDetailModal";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
-const Profile = ({ navigation }) => {
+const ProfileScreen = ({ navigation }) => {
   const imgUrl =
     "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg";
   const dispatch = useDispatch();
@@ -75,11 +75,11 @@ const Profile = ({ navigation }) => {
   );
   return (
     <SafeAreaView
-      className="bg-white w-full h-full "
+      className="bg-white flex-1"
       style={AndroidSafeArea.AndroidSafeArea}
     >
       <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-        <Text className="font-bold text-2xl text-gray-900">Profile</Text>
+        <Text className="font-bold text-[22px] text-gray-900">Profile</Text>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.navigate("EditProfile")}
@@ -255,4 +255,4 @@ const Profile = ({ navigation }) => {
   );
 };
 
-export default Profile;
+export default ProfileScreen;

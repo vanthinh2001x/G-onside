@@ -1,16 +1,30 @@
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
+import { Ionicons } from "react-native-vector-icons";
 
 import React from "react";
+import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
-const Notifications = () => {
-  let user = useSelector((state) => state.user.userData);
-  console.log("UWU: ", user);
-  const translate = useSelector((state) => state.translate);
-  console.log("translate login: ", translate);
+const Notifications = ({ navigation }) => {
   return (
-    <SafeAreaView className="sticky top-0 z-10 p-4 max-w-2xl mx-auto my-4 flex flex-row items-center backdrop-blur md:px-0 lg:max-w-3xl">
-      <Text>Notifications</Text>
+    <SafeAreaView
+      className="bg-white flex-1"
+      style={AndroidSafeArea.AndroidSafeArea}
+    >
+      <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+        <Text className="font-bold text-[22px] text-gray-900">
+          Notification
+        </Text>
+        <TouchableOpacity
+          activeOpacity={0.6}
+          onPress={() => {}}
+          className="absolute right-4"
+        >
+          <Text className="text-base font-semibold">
+            <Ionicons name="create-outline" size={28} />
+          </Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };

@@ -307,14 +307,14 @@ const Applications = ({ navigation }) => {
     <>
       <View className="bg-white pt-5">
         <View className="relative flex-row items-center justify-center p-4">
-          <Text className="text-2xl font-bold text-gray-900">Users</Text>
+          <Text className="text-[22px] font-bold text-gray-900">Users</Text>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {}}
             className="absolute right-6"
           >
             <Text className="text-base font-semibold">
-              <Ionicons name="search" size={26} />
+              <Ionicons name="notification-outline" size={26} />
             </Text>
           </TouchableOpacity>
         </View>

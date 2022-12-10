@@ -19,6 +19,7 @@ import ApplicationsScreen from "../screens/ApplicationsScreen";
 import Notifications from "../screens/Notifications";
 import ProfileScreen from "../screens/ProfileScreen";
 import SignupScreen from "../screens/SignupScreen";
+import GroupMemberListScreen from "../screens/GroupMemberListScreen";
 import { config } from "./config";
 
 const AppNavigation = () => {
@@ -95,6 +96,7 @@ const AppNavigation = () => {
       <Stack.Screen name="HomeTab" component={HomeTab} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="changePassword" component={ChangePasswordScreen} />
+      <Stack.Screen name="GroupMember" component={GroupMemberListScreen} />
     </Stack.Navigator>
   );
 

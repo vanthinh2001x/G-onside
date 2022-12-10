@@ -2,7 +2,6 @@ import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 const GroupItem = ({ group, navigation }) => {
-  console.log(navigation);
   return (
     <TouchableOpacity
       activeOpacity={0.5}
