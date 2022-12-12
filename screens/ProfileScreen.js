@@ -78,24 +78,20 @@ const ProfileScreen = ({ navigation }) => {
       className="bg-white flex-1"
       style={AndroidSafeArea.AndroidSafeArea}
     >
-      <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+      <View className="flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
         <Text className="font-bold text-[22px] text-gray-900">Profile</Text>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.navigate("EditProfile")}
-          className="absolute right-4"
+          className="absolute right-4 translate-y-[2px]"
         >
           <Text className="text-base font-semibold">
-            <Ionicons name="create-outline" size={28} />
+            <Ionicons name="create-outline" size={26} />
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView
-        pagingEnabled
-        showsVerticalScrollIndicator={false}
-        className="pt-8"
-      >
-        <View className="flex-row items-center px-6">
+      <ScrollView>
+        <View className="flex-row items-center px-6 pt-8">
           <View>
             <TouchableOpacity
               activeOpacity={0.9}

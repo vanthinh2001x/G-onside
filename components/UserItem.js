@@ -63,7 +63,7 @@ const UserItem = ({ user }) => {
             />
           </TouchableOpacity>
           <Text className="text-xl font-bold text-gray-900">{user.name}</Text>
-          <View className="flex-row mb-4">
+          <View className="mb-4">
             <Text className="text-center">
               <Text className="text-sm font-bold text-gray-800">
                 {user.nickName}
