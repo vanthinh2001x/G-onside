@@ -1,36 +1,27 @@
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import ImageViewer from "react-native-image-zoom-viewer";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const UserItem = ({ user }) => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [imageModalVisible, setImageModalVisible] = useState(false);
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
   };
-
-  const images = [
-    {
-      url: user.avatar,
-      props: {},
-    },
-  ];
 
   return (
     <>
       <TouchableOpacity
         activeOpacity={0.5}
-        className="flex-row items-center gap-4 mb-4"
+        className="flex-row items-center mb-4"
         onPress={toggleModal}
       >
         <Image
           source={{
             uri: user.avatar,
           }}
-          className="h-11 w-11 rounded-full"
+          className="h-11 w-11 rounded-full mr-4"
         />
         <View>
           <Text className="text-[16px] mb-[2px] font-semibold text-gray-900">
@@ -46,15 +37,10 @@ const UserItem = ({ user }) => {
         isVisible={isModalVisible}
         swipeDirection="down"
         onSwipeComplete={toggleModal}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center flex-1"
       >
-        <View className="bg-white flex items-center justify-center h-auto w-[84%] px-4 py-6 rounded-2xl">
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => {
-              setImageModalVisible(true);
-            }}
-          >
+        <View className="bg-white flex items-center justify-center h-auto w-[84%] px-4 py-6 rounded-2xl z-10">
+          <TouchableOpacity activeOpacity={0.7} onPress={() => {}}>
             <Image
               source={{
                 uri: user.avatar,
@@ -113,30 +99,6 @@ const UserItem = ({ user }) => {
             />
             <Text className="text-[#2e8dfa] font-medium">See Groups</Text>
           </TouchableOpacity>
-        </View>
-        <View className="fixed z-10">
-          <Modal animationType="fade" visible={imageModalVisible}>
-            <ImageViewer
-              imageUrls={images}
-              renderIndicator={() => ""}
-              onSwipeDown={() => setImageModalVisible(false)}
-              enableSwipeDown={true}
-            />
-            <TouchableOpacity
-              className="absolute top-4 left-6 z-10 "
-              activeOpacity={0.5}
-              onPress={() => setImageModalVisible(false)}
-            >
-              <Icon name="close-circle" size={28} color="#fff" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              className="absolute top-4 right-6 z-10"
-              activeOpacity={0.5}
-              onPress={() => {}}
-            >
-              <Icon name="download-outline" size={28} color="#fff" />
-            </TouchableOpacity>
-          </Modal>
         </View>
       </Modal>
     </>

@@ -22,6 +22,7 @@ import PhotoDetailModal from "../components/PhotoDetailModal";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
+//constants
 const SWITCH_TRACK_COLOR = {
   true: "#438eff",
   false: "rgba(0,0,0,0.1)",
@@ -30,8 +31,11 @@ const VN_URL =
   "https://product.hstatic.net/200000122283/product/c-e1-bb-9d-vi-e1-bb-87t-nam_2c0683597d2d419fac401f51ccbae779_master.jpg";
 const UK_URL =
   "https://cdn.pixabay.com/photo/2015/11/06/13/29/union-jack-1027898_960_720.jpg";
+const imgUrl =
+  "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg";
 
 const ProfileScreen = ({ navigation }) => {
+  //refresh control
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -39,8 +43,7 @@ const ProfileScreen = ({ navigation }) => {
       setRefreshing(false);
     }, 500);
   }, []);
-  const imgUrl =
-    "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg";
+  //logout actions
   const dispatch = useDispatch();
   const { showActionSheetWithOptions } = useActionSheet();
   const handleLogout = async () => {
@@ -53,6 +56,7 @@ const ProfileScreen = ({ navigation }) => {
       navigation.navigate("AuthStack");
     }
   };
+  //logout modal
   const logoutPress = () => {
     const options = ["Logout", "Cancel"];
     const cancelButtonIndex = 1;
@@ -78,6 +82,8 @@ const ProfileScreen = ({ navigation }) => {
       }
     );
   };
+
+  //avatar modal
   const avatarSheetRef = useRef();
   const imageRef = useRef();
   const onImagePress = useCallback(() => {
@@ -90,6 +96,7 @@ const ProfileScreen = ({ navigation }) => {
   const { isPhotoVisible, photoData } = useSelector(
     (state) => state.photoModal
   );
+  //change mode
   const [theme, setTheme] = useState("light");
 
   return (
