@@ -229,7 +229,6 @@ const Notifications = ({ navigation }) => {
                     setAllowNoti(allowNoti ? false : true);
                   }}
                   trackColor={SWITCH_TRACK_COLOR}
-                  // thumbColor={"#3b82f6"}
                   style={{ transform: [{ scale: 0.84 }] }}
                 />
               </View>
