@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   View,
   RefreshControl,
+  Switch,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Ionicons } from "react-native-vector-icons";
@@ -21,9 +22,17 @@ import PhotoDetailModal from "../components/PhotoDetailModal";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
+const SWITCH_TRACK_COLOR = {
+  true: "#438eff",
+  false: "rgba(0,0,0,0.1)",
+};
+const VN_URL =
+  "https://product.hstatic.net/200000122283/product/c-e1-bb-9d-vi-e1-bb-87t-nam_2c0683597d2d419fac401f51ccbae779_master.jpg";
+const UK_URL =
+  "https://cdn.pixabay.com/photo/2015/11/06/13/29/union-jack-1027898_960_720.jpg";
+
 const ProfileScreen = ({ navigation }) => {
   const [refreshing, setRefreshing] = useState(false);
-
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
@@ -69,7 +78,6 @@ const ProfileScreen = ({ navigation }) => {
       }
     );
   };
-
   const avatarSheetRef = useRef();
   const imageRef = useRef();
   const onImagePress = useCallback(() => {
@@ -82,6 +90,8 @@ const ProfileScreen = ({ navigation }) => {
   const { isPhotoVisible, photoData } = useSelector(
     (state) => state.photoModal
   );
+  const [theme, setTheme] = useState("light");
+
   return (
     <SafeAreaView
       className="bg-white flex-1"
@@ -143,53 +153,52 @@ const ProfileScreen = ({ navigation }) => {
           </View>
         </View>
         <View className="mt-12 border-t-[1px] border-t-gray-200">
+          <View>
+            <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
+              <Ionicons name="sunny-outline" size={26} color="#1e293b" />
+              <Text className="flex-1 text-lg font-semibold text-slate-800">
+                Dark mode
+              </Text>
+              <Switch
+                value={theme === "light"}
+                onValueChange={(toggled) => {
+                  setTheme(toggled ? "light" : "dark");
+                }}
+                trackColor={SWITCH_TRACK_COLOR}
+                style={{ transform: [{ scale: 0.84 }] }}
+              />
+            </View>
+          </View>
+          <View>
+            <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
+              <Ionicons name="globe-outline" size={26} color="#1e293b" />
+              <Text className="flex-1 text-lg font-semibold text-slate-800">
+                Language
+              </Text>
+              <View className="flex-row">
+                <TouchableOpacity>
+                  <Image
+                    source={{ uri: VN_URL }}
+                    className="w-6 h-6 rounded-full mr-3 opacity-40"
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Image
+                    source={{ uri: UK_URL }}
+                    className="w-6 h-6 rounded-full"
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => navigation.navigate("changePassword")}
           >
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
-              <Ionicons name="key" size={26} color="#1e293b" />
-              <Text className="flex-1 text-lg font-bold text-slate-800">
-                Change Password
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={24}
-                color="#1e293b"
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
-            <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
-              <Ionicons name="people" size={26} color="#1e293b" />
-              <Text className="flex-1 text-lg font-bold text-slate-800">
-                Users
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={24}
-                color="#1e293b"
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
-            <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300">
-              <Icon name="account-group" size={26} color="#1e293b" />
-              <Text className="flex-1 text-lg font-bold text-slate-800">
-                Groups
-              </Text>
-              <Ionicons
-                name="chevron-forward-outline"
-                size={24}
-                color="#1e293b"
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
-            <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
-              <Ionicons name="layers" size={26} color="#1e293b" />
-              <Text className="flex-1 text-lg font-bold text-slate-800">
-                Applications & Services
+              <Ionicons name="key-outline" size={26} color="#1e293b" />
+              <Text className="flex-1 text-lg font-semibold text-slate-800">
+                Change password
               </Text>
               <Ionicons
                 name="chevron-forward-outline"
@@ -200,8 +209,8 @@ const ProfileScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.6} onPress={logoutPress}>
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
-              <Ionicons name="log-out" size={26} color="#1e293b" />
-              <Text className="flex-1 text-lg font-bold text-slate-800">
+              <Ionicons name="log-out-outline" size={26} color="#1e293b" />
+              <Text className="flex-1 text-lg font-semibold text-slate-800">
                 Logout
               </Text>
             </View>

@@ -161,7 +161,7 @@ const Notifications = ({ navigation }) => {
   ];
   const modalizeRef = useRef(null);
   const SWITCH_TRACK_COLOR = {
-    true: "rgba(147, 197, 253, 0.5)",
+    true: "#438eff",
     false: "rgba(0,0,0,0.1)",
   };
   const [allowNoti, setAllowNoti] = useState(true);
@@ -229,7 +229,7 @@ const Notifications = ({ navigation }) => {
                     setAllowNoti(allowNoti ? false : true);
                   }}
                   trackColor={SWITCH_TRACK_COLOR}
-                  thumbColor={"#3b82f6"}
+                  // thumbColor={"#3b82f6"}
                   style={{ transform: [{ scale: 0.84 }] }}
                 />
               </View>
