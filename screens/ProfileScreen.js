@@ -1,7 +1,7 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { Portal } from "@gorhom/portal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   Image,
   SafeAreaView,
@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  RefreshControl,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Ionicons } from "react-native-vector-icons";
@@ -21,6 +22,14 @@ import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const ProfileScreen = ({ navigation }) => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  }, []);
   const imgUrl =
     "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg";
   const dispatch = useDispatch();
@@ -90,7 +99,11 @@ const ProfileScreen = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View className="flex-row items-center px-6 pt-8">
           <View>
             <TouchableOpacity

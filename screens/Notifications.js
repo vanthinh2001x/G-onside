@@ -5,10 +5,11 @@ import {
   TouchableOpacity,
   View,
   Switch,
+  RefreshControl,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import NotificationItem from "../components/NotificationItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 import { Modalize } from "react-native-modalize";
@@ -164,6 +165,14 @@ const Notifications = ({ navigation }) => {
     false: "rgba(0,0,0,0.1)",
   };
   const [allowNoti, setAllowNoti] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  }, []);
   return (
     <>
       <SafeAreaView
@@ -184,7 +193,11 @@ const Notifications = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           {notifications.map((notification, index) => (
             <NotificationItem notification={notification} key={index} />
           ))}

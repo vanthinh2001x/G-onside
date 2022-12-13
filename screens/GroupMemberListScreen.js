@@ -4,14 +4,21 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ScrollView,
+  RefreshControl,
 } from "react-native";
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Ionicons } from "react-native-vector-icons";
 import UserItem from "../components/UserItem";
 
 const GroupMemberListScreen = ({ navigation, route }) => {
   const { users, name } = route.params;
-  console.log(users[0]);
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  }, []);
   return (
     <SafeAreaView className="bg-white flex-1">
       <View className="relative flex-row items-center justify-center py-2 border-b-[1px] border-b-gray-100">
@@ -26,7 +33,12 @@ const GroupMemberListScreen = ({ navigation, route }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <ScrollView className="flex-1 px-4 pt-2">
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+        className="flex-1 px-4 pt-2"
+      >
         {users.map((user, index) => (
           <UserItem user={user} key={index} />
         ))}
