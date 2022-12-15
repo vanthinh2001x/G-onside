@@ -13,9 +13,6 @@ import G_TLC from "../assets/g-tlc.svg";
 import { useState } from "react";
 import { useCallback } from "react";
 
-{
-  /* <G_Ins height={100} width={100} /> */
-}
 const ApplicationsScreen = () => {
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -24,6 +21,7 @@ const ApplicationsScreen = () => {
       setRefreshing(false);
     }, 500);
   }, []);
+
   return (
     <View className="flex-1 bg-white">
       <View className="bg-white pt-5 px-4 pb-3">
