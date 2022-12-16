@@ -11,7 +11,6 @@ import {
 import Animated from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
-
 function HomeScreen({ navigation }) {
   //refresh control
   const [refreshing, setRefreshing] = useState(false);

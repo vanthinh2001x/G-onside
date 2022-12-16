@@ -26,7 +26,6 @@
     "nativewind": "^2.0.11",
     "react": "18.0.0",
     "react-native": "0.69.6",
-    "react-native-bouncy-checkbox": "^3.0.6",
     "react-native-crypto-js": "^1.0.0",
     "react-native-gesture-handler": "^2.5.0",
     "react-native-image-zoom-viewer": "^3.0.1",

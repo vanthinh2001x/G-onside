@@ -4,8 +4,14 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 import { Ionicons } from "react-native-vector-icons";
 import Checkbox from "expo-checkbox";
 import ButtonPrimary from "../components/ButtonPrimary";
+import { useState } from "react";
 
 const PostAudienceScreen = ({ navigation }) => {
+  console.log("rerender");
+  const [audienceType, setAudienceType] = useState("public");
+  const onAudienceChange = (type) => {
+    setAudienceType(type);
+  };
   return (
     <View className="bg-white flex-1">
       {/* header */}
@@ -36,6 +42,7 @@ const PostAudienceScreen = ({ navigation }) => {
         <View>
           {/* Button item  */}
           <Pressable
+            onPress={() => onAudienceChange("public")}
             style={({ pressed }) => [
               {
                 backgroundColor: pressed ? "#dedfe1" : "white",
@@ -50,11 +57,15 @@ const PostAudienceScreen = ({ navigation }) => {
                 </Text>
                 <Text className="text-gray-500">Everyone can see</Text>
               </View>
-              <Checkbox value={true} className="mr-2" />
+              <Checkbox value={audienceType === "public"} className="mr-2" />
             </View>
           </Pressable>
           {/* Button item  */}
           <Pressable
+            onPress={() => {
+              navigation.navigate("AudienceFilter", { type: "designated" });
+              onAudienceChange("designated");
+            }}
             style={({ pressed }) => [
               {
                 backgroundColor: pressed ? "#dedfe1" : "white",
@@ -71,11 +82,18 @@ const PostAudienceScreen = ({ navigation }) => {
                   Show to Designated colleagues
                 </Text>
               </View>
-              <Checkbox value={false} className="mr-2" />
+              <Checkbox
+                value={audienceType === "designated"}
+                className="mr-2"
+              />
             </View>
           </Pressable>
           {/* Button item  */}
           <Pressable
+            onPress={() => {
+              navigation.navigate("AudienceFilter", { type: "except" });
+              onAudienceChange("except");
+            }}
             style={({ pressed }) => [
               {
                 backgroundColor: pressed ? "#dedfe1" : "white",
@@ -92,11 +110,12 @@ const PostAudienceScreen = ({ navigation }) => {
                   Don't show to some colleagues
                 </Text>
               </View>
-              <Checkbox value={false} className="mr-2" />
+              <Checkbox value={audienceType === "except"} className="mr-2" />
             </View>
           </Pressable>
           {/* Button item  */}
           <Pressable
+            onPress={() => onAudienceChange("only")}
             style={({ pressed }) => [
               {
                 backgroundColor: pressed ? "#dedfe1" : "white",
@@ -111,7 +130,7 @@ const PostAudienceScreen = ({ navigation }) => {
                 </Text>
                 <Text className="text-gray-500">Only me can see</Text>
               </View>
-              <Checkbox value={false} className="mr-2" />
+              <Checkbox value={audienceType === "only"} className="mr-2" />
             </View>
           </Pressable>
         </View>

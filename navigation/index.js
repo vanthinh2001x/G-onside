@@ -23,6 +23,7 @@ import GroupMemberListScreen from "../screens/GroupMemberListScreen";
 import { config } from "./config";
 import CreatePostScreen from "../screens/CreatePostScreen";
 import PostAudienceScreen from "../screens/PostAudienceScreen";
+import AudienceFilterScreen from "../screens/AudienceFilterScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -107,6 +108,11 @@ const AppNavigation = () => {
       <Stack.Screen
         name="PostAudience"
         component={PostAudienceScreen}
+        options={{ presentation: "fullScreenModal" }}
+      />
+      <Stack.Screen
+        name="AudienceFilter"
+        component={AudienceFilterScreen}
         options={{ presentation: "fullScreenModal" }}
       />
     </Stack.Navigator>
