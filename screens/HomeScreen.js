@@ -1,20 +1,18 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Image,
+  Pressable,
   RefreshControl,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 import Animated from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
+import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
-import { useEffect } from "react";
-function HomeScreen() {
+function HomeScreen({ navigation }) {
   //refresh control
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -46,6 +44,7 @@ function HomeScreen() {
   });
   return (
     <SafeAreaView className="flex-1" style={AndroidSafeArea.AndroidSafeArea}>
+      {/* Header */}
       <Animated.View
         className="absolute w-full top-5 z-10 bg-white flex-row items-center justify-between px-4 h-[60]"
         style={{
@@ -83,24 +82,38 @@ function HomeScreen() {
         )}
         scrollEventThrottle={5}
       >
+        {/* Post */}
         <View className="p-4  flex-row items-center justify-center  border-b-2 border-b-gray-200">
           <Image
             source={require("../assets/avatar.jpg")}
             className="w-10 h-10 rounded-full"
           />
-          <TouchableOpacity className="flex-1 mx-3">
+          <Pressable
+            onPress={() => navigation.navigate("CreatePost")}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#dedfe1" : "white",
+                flex: 1,
+                marginHorizontal: 12,
+                padding: 4,
+                borderRadius: 6,
+              },
+            ]}
+          >
             <View className="h-8 flex justify-center">
               <Text className="text-base text-gray-900 ">
                 Share with friend
               </Text>
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity className="mr-2">
+          </Pressable>
+          <TouchableOpacity className="mr-2" activeOpacity={0.8}>
             <Ionicons name="images" size={24} color="#46bc64" />
           </TouchableOpacity>
         </View>
         <View>
-          <Text>Hi</Text>
+          <View>
+            <Text>cc</Text>
+          </View>
         </View>
       </Animated.ScrollView>
     </SafeAreaView>

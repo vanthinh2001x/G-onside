@@ -16,11 +16,13 @@ import HomeScreen from "../screens/HomeScreen";
 import LoadingScreen from "../screens/LoadingScreen";
 import LoginScreen from "../screens/LoginScreen";
 import ApplicationsScreen from "../screens/ApplicationsScreen";
-import Notifications from "../screens/Notifications";
+import NotificationsScreen from "../screens/NotificationsScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import SignupScreen from "../screens/SignupScreen";
 import GroupMemberListScreen from "../screens/GroupMemberListScreen";
 import { config } from "./config";
+import CreatePostScreen from "../screens/CreatePostScreen";
+import PostAudienceScreen from "../screens/PostAudienceScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -86,7 +88,7 @@ const AppNavigation = () => {
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Applications" component={ApplicationsScreen} />
       <Tab.Screen name="Group" component={GroupScreen} />
-      <Tab.Screen name="Notifications" component={Notifications} />
+      <Tab.Screen name="Notifications" component={NotificationsScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
@@ -95,8 +97,18 @@ const AppNavigation = () => {
     <Stack.Navigator screenOptions={config}>
       <Stack.Screen name="HomeTab" component={HomeTab} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
-      <Stack.Screen name="changePassword" component={ChangePasswordScreen} />
+      <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Stack.Screen name="GroupMember" component={GroupMemberListScreen} />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePostScreen}
+        options={{ presentation: "fullScreenModal" }}
+      />
+      <Stack.Screen
+        name="PostAudience"
+        component={PostAudienceScreen}
+        options={{ presentation: "fullScreenModal" }}
+      />
     </Stack.Navigator>
   );
 

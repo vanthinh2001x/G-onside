@@ -200,7 +200,7 @@ const ProfileScreen = ({ navigation }) => {
           </View>
           <TouchableOpacity
             activeOpacity={0.6}
-            onPress={() => navigation.navigate("changePassword")}
+            onPress={() => navigation.navigate("ChangePassword")}
           >
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
               <Ionicons name="key-outline" size={26} color="#1e293b" />

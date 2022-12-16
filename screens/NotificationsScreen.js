@@ -14,7 +14,7 @@ import NotificationItem from "../components/NotificationItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 import { Modalize } from "react-native-modalize";
 import { Portal } from "@gorhom/portal";
-const Notifications = ({ navigation }) => {
+const NotificationsScreen = ({ navigation }) => {
   const notifications = [
     {
       avatar:
@@ -251,4 +251,4 @@ const Notifications = ({ navigation }) => {
   );
 };
 
-export default Notifications;
+export default NotificationsScreen;
