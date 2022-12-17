@@ -7,7 +7,6 @@ import ButtonPrimary from "../components/ButtonPrimary";
 import { useState } from "react";
 
 const PostAudienceScreen = ({ navigation }) => {
-  console.log("rerender");
   const [audienceType, setAudienceType] = useState("public");
   const onAudienceChange = (type) => {
     setAudienceType(type);
@@ -57,7 +56,11 @@ const PostAudienceScreen = ({ navigation }) => {
                 </Text>
                 <Text className="text-gray-500">Everyone can see</Text>
               </View>
-              <Checkbox value={audienceType === "public"} className="mr-2" />
+              <Checkbox
+                value={audienceType === "public"}
+                className="mr-2"
+                onValueChange={() => onAudienceChange("public")}
+              />
             </View>
           </Pressable>
           {/* Button item  */}
@@ -85,6 +88,7 @@ const PostAudienceScreen = ({ navigation }) => {
               <Checkbox
                 value={audienceType === "designated"}
                 className="mr-2"
+                onValueChange={() => onAudienceChange("designated")}
               />
             </View>
           </Pressable>
@@ -110,7 +114,11 @@ const PostAudienceScreen = ({ navigation }) => {
                   Don't show to some colleagues
                 </Text>
               </View>
-              <Checkbox value={audienceType === "except"} className="mr-2" />
+              <Checkbox
+                value={audienceType === "except"}
+                className="mr-2"
+                onValueChange={() => onAudienceChange("except")}
+              />
             </View>
           </Pressable>
           {/* Button item  */}
@@ -130,7 +138,11 @@ const PostAudienceScreen = ({ navigation }) => {
                 </Text>
                 <Text className="text-gray-500">Only me can see</Text>
               </View>
-              <Checkbox value={audienceType === "only"} className="mr-2" />
+              <Checkbox
+                value={audienceType === "only"}
+                className="mr-2"
+                onValueChange={() => onAudienceChange("only")}
+              />
             </View>
           </Pressable>
         </View>
