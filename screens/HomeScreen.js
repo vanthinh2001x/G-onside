@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { Ionicons } from "react-native-vector-icons";
+import PostItem from "../components/PostItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 function HomeScreen({ navigation }) {
   //refresh control
@@ -41,6 +42,16 @@ function HomeScreen({ navigation }) {
     outputRange: [1, 0],
     extrapolate: "clamp",
   });
+  const post = {
+    avatar:
+      "https://i.pinimg.com/564x/75/62/f0/7562f0dc6251c484f7046811f3532905.jpg",
+    name: "Thinh Pham Van",
+    time: "26 April",
+    audience: "only",
+    text: "Lionel Messi là cầu thủ đầu tiên trong lịch sử World Cup trở thành Cầu thủ xuất sắc nhất trận ở Vòng 16 đội, Tứ kết, Bán kết và Chung kết... \n🤯🐐\n⚽️ 7 Bàn thắng\n🎯 3 Kiến tạo\n🏅 5 Danh hiệu cầu thủ xuất sắc nhất trận\n🏅 Quả bóng vàng World Cup\n🏆 Nhà Vô Địch World Cup",
+    like: 8,
+    cmt: 2,
+  };
   return (
     <SafeAreaView className="flex-1" style={AndroidSafeArea.AndroidSafeArea}>
       {/* Header */}
@@ -85,7 +96,7 @@ function HomeScreen({ navigation }) {
         <View className="p-4  flex-row items-center justify-center  border-b-2 border-b-gray-200">
           <Image
             source={require("../assets/avatar.jpg")}
-            className="w-10 h-10 rounded-full"
+            className="w-[42] h-[42] rounded-full"
           />
           <Pressable
             onPress={() => navigation.navigate("CreatePost")}
@@ -109,10 +120,9 @@ function HomeScreen({ navigation }) {
             <Ionicons name="images" size={24} color="#46bc64" />
           </TouchableOpacity>
         </View>
-        <View>
-          <View>
-            <Text>cc</Text>
-          </View>
+        {/* Body */}
+        <View className="mt-4">
+          <PostItem post={post} />
         </View>
       </Animated.ScrollView>
     </SafeAreaView>
