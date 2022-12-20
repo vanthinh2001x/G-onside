@@ -1,16 +1,13 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Dimensions,
   Image,
   Pressable,
+  ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
-  TextInput,
-  Keyboard,
-  ScrollView,
-  Dimensions,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 
@@ -25,7 +22,6 @@ const CreatePostScreen = ({ navigation }) => {
     });
   }, []);
   const [text, setText] = useState("");
-  console.log(text);
   return (
     <View className="bg-white flex-1">
       {/* header */}

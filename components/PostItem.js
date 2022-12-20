@@ -1,17 +1,39 @@
-import { View, Text, Image, Pressable } from "react-native";
-import React from "react";
-import { Ionicons } from "react-native-vector-icons";
-import { AntDesign } from "react-native-vector-icons";
+import { Portal } from "@gorhom/portal";
+import React, { useEffect, useState } from "react";
+import { useRef } from "react";
+import { Dimensions, Image, Pressable, Text, View } from "react-native";
+import { Modalize } from "react-native-modalize";
+import { AntDesign, Ionicons, FontAwesome5 } from "react-native-vector-icons";
+const { width, height } = Dimensions.get("window");
 const PostItem = ({ post }) => {
   const { avatar, name, time, audience, text, images, like, cmt } = post;
+  //image
+  const imgsLen = images?.length;
+  const [imgSize, setImgSize] = useState({ width: 0.1, height: 0 });
+  useEffect(() => {
+    if (images.length > 0) {
+      Image.getSize(images[0], (width, height) => {
+        setImgSize({ width, height });
+      });
+    }
+  }, [images]);
+  const isPortrait = imgSize.height > imgSize.width;
+  const targetHeight = Math.min(
+    (imgSize.height * width) / imgSize.width,
+    (height * 2) / 3
+  );
+  //icon
   const iconAudience =
     audience === "public"
       ? "earth"
       : audience === "designated" || audience === "except"
       ? "people"
       : "lock-closed";
+  //Modal
+  const modalizeRef = useRef(null);
+
   return (
-    <View className="border-y-[0.4px] border-y-gray-400">
+    <View className="border-t-8 border-t-gray-200">
       <View className="p-4 flex-row justify-between">
         <View className="flex-row">
           <Image
@@ -29,16 +51,74 @@ const PostItem = ({ post }) => {
             </View>
           </View>
         </View>
-        <Pressable>
-          <Ionicons name="ellipsis-horizontal" size={20} color="#374151" />
+        <Pressable onPress={() => modalizeRef.current?.open()}>
+          <Ionicons name="ellipsis-horizontal" size={22} color="#374151" />
         </Pressable>
       </View>
       <View className="mx-4 mb-4">
         <Text className="text-[15px] text-gray-800">{text}</Text>
       </View>
-      <View>
-        {images && images.map((img) => <Image source={{ uri: img }} />)}
-      </View>
+      {images.length > 0 && (
+        <View className="flex-1 flex-row flex-wrap mb-4">
+          {imgsLen > 5 && (
+            <View
+              style={{
+                width: width / 3 - 4,
+                height: (height * 1) / 5,
+                backgroundColor: "rgba(0,0,0,0.5)",
+              }}
+              className="absolute z-10 bottom-[2px] right-[2px] flex items-center justify-center"
+            >
+              <Text className="text-[20px] font-semibold text-white">
+                +{imgsLen - 5}
+              </Text>
+            </View>
+          )}
+          {images.slice(0, 5).map((img, index) => (
+            <View key={index} className="p-[2px]">
+              <Image
+                key={index}
+                source={{ uri: img }}
+                style={
+                  imgsLen === 1
+                    ? { width, height: targetHeight }
+                    : imgsLen === 2
+                    ? isPortrait
+                      ? { width: width / 2 - 4, height: targetHeight / 2 }
+                      : { width: width - 4, height: targetHeight }
+                    : imgsLen === 3
+                    ? index === 0
+                      ? {
+                          width: width - 4,
+                          height: Math.min(targetHeight, (height * 2) / 5),
+                        }
+                      : { width: width / 2 - 4, height: (height * 1) / 3 }
+                    : imgsLen === 4
+                    ? index === 0
+                      ? {
+                          width,
+                          height: Math.min(targetHeight, (height * 2) / 5),
+                        }
+                      : { width: width / 3 - 4, height: (height * 1) / 5 }
+                    : imgsLen === 5
+                    ? index === 0 || index === 1
+                      ? {
+                          width: width / 2 - 4,
+                          height: Math.min(targetHeight, (height * 1) / 3),
+                        }
+                      : { width: width / 3 - 4, height: (height * 1) / 5 }
+                    : index === 0 || index === 1
+                    ? {
+                        width: width / 2 - 4,
+                        height: Math.min(targetHeight, (height * 1) / 3),
+                      }
+                    : { width: width / 3 - 4, height: (height * 1) / 5 }
+                }
+              />
+            </View>
+          ))}
+        </View>
+      )}
       <View className="px-4 pb-2 flex-row items-center">
         <View className="w-[18px] h-[18px] rounded-full flex items-center justify-center bg-blue-500">
           <AntDesign
@@ -66,6 +146,74 @@ const PostItem = ({ post }) => {
           </Text>
         </Pressable>
       </View>
+      <Portal>
+        <Modalize
+          ref={modalizeRef}
+          handlePosition="inside"
+          adjustToContentHeight={true}
+          handleStyle={{ backgroundColor: "#bcc0c1" }}
+        >
+          <View className="p-4 pt-8 bg-gray-100 rounded-tl-xl rounded-tr-xl">
+            <View className="bg-white rounded-lg py-2">
+              <Pressable
+                onPress={() => modalizeRef.current.close()}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#dedfe1" : "transparent",
+                  },
+                ]}
+              >
+                <View className="flex-row items-center py-3 px-6">
+                  <View className="w-7">
+                    <FontAwesome5 name="pen" color="#111827" size={20} />
+                  </View>
+                  <Text className="text-[18px] font-medium text-gray-900 ml-4">
+                    Edit post
+                  </Text>
+                </View>
+              </Pressable>
+              <Pressable
+                onPress={() => modalizeRef.current.close()}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#dedfe1" : "transparent",
+                  },
+                ]}
+              >
+                <View className="flex-row items-center py-3 px-6">
+                  <View className="w-7">
+                    <FontAwesome5
+                      name="comment-slash"
+                      color="#111827"
+                      size={20}
+                    />
+                  </View>
+                  <Text className="text-[18px] font-medium text-gray-900 ml-4">
+                    Turn off comments
+                  </Text>
+                </View>
+              </Pressable>
+              <Pressable
+                onPress={() => modalizeRef.current.close()}
+                style={({ pressed }) => [
+                  {
+                    backgroundColor: pressed ? "#dedfe1" : "transparent",
+                  },
+                ]}
+              >
+                <View className="flex-row items-center py-3 px-6">
+                  <View className="w-7">
+                    <FontAwesome5 name="trash-alt" color="#111827" size={20} />
+                  </View>
+                  <Text className="text-[18px] font-medium text-gray-900 ml-4">
+                    Delete post
+                  </Text>
+                </View>
+              </Pressable>
+            </View>
+          </View>
+        </Modalize>
+      </Portal>
     </View>
   );
 };

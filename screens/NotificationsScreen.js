@@ -215,7 +215,7 @@ const NotificationsScreen = ({ navigation }) => {
               <Ionicons name="settings-outline" size={28} color="#111827" />
               <Text className="text-lg font-semibold">Settings</Text>
             </View>
-            <View className="pb-10 flex-col gap-0">
+            <View className="pb-10 flex-col">
               <View className="flex-row items-center py-2 px-6">
                 <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
                   <Ionicons name="notifications" color="#111827" size={24} />
