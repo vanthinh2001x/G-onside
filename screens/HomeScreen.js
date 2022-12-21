@@ -43,6 +43,7 @@ function HomeScreen({ navigation }) {
         "https://tophinhanhdep.com/wp-content/uploads/2021/10/Facebook-Cover-Wallpapers.jpg",
         "https://i.pinimg.com/736x/41/1c/7e/411c7e92728271f63f340f51be6dbfb0.jpg",
       ],
+      liked: true,
     },
     {
       avatar:
@@ -52,7 +53,7 @@ function HomeScreen({ navigation }) {
       audience: "public",
       text: "Lionel Messi là cầu thủ đầu tiên trong lịch sử World Cup trở thành Cầu thủ xuất sắc nhất trận ở Vòng 16 đội, Tứ kết, Bán kết và Chung kết... \n🤯🐐\n⚽️ 7 Bàn thắng\n🎯 3 Kiến tạo\n🏅 5 Danh hiệu cầu thủ xuất sắc nhất trận\n🏅 Quả bóng vàng World Cup\n🏆 Nhà Vô Địch World Cup",
       like: 8,
-      cmt: 2,
+      cmt: 6,
       images: [
         // "https://i.pinimg.com/564x/76/87/26/768726858fcedde6e06d35d1c5405930.jpg",
         // "https://by.com.vn/RvEXZ",
@@ -63,6 +64,7 @@ function HomeScreen({ navigation }) {
         // "https://tophinhanhdep.com/wp-content/uploads/2021/10/Facebook-Cover-Wallpapers.jpg",
         // "https://i.pinimg.com/736x/41/1c/7e/411c7e92728271f63f340f51be6dbfb0.jpg",
       ],
+      liked: false,
     },
   ];
 
@@ -77,15 +79,22 @@ function HomeScreen({ navigation }) {
             className="w-[100%] h-[100%]"
           />
         </View>
-        <TouchableOpacity
-          activeOpacity={0.6}
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
+              transform: [{ scale: pressed ? 0.95 : 1 }],
+              borderRadius: 19,
+            },
+          ]}
           onPress={() => {}}
-          className="h-[38px] w-[38px] flex items-center justify-center bg-gray-300 rounded-full"
         >
-          <Text className="text-base font-semibold translate-x-[2px]">
-            <Ionicons name="create" size={24} />
-          </Text>
-        </TouchableOpacity>
+          <View className="h-[38px] w-[38px] flex items-center justify-center">
+            <Text className="text-base font-semibold translate-x-[2px]">
+              <Ionicons name="create" size={24} />
+            </Text>
+          </View>
+        </Pressable>
       </View>
       <View />
       <ScrollView

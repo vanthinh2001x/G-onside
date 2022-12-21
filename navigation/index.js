@@ -24,6 +24,7 @@ import { config } from "./config";
 import CreatePostScreen from "../screens/CreatePostScreen";
 import PostAudienceScreen from "../screens/PostAudienceScreen";
 import AudienceFilterScreen from "../screens/AudienceFilterScreen";
+import ImageDetailScreen from "../screens/ImageDetailScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -114,6 +115,11 @@ const AppNavigation = () => {
         name="AudienceFilter"
         component={AudienceFilterScreen}
         options={{ presentation: "fullScreenModal" }}
+      />
+      <Stack.Screen
+        name="ImageDetail"
+        component={ImageDetailScreen}
+        // options={{ gestureEnabled: false }}
       />
     </Stack.Navigator>
   );

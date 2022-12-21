@@ -1,4 +1,5 @@
 import { Portal } from "@gorhom/portal";
+import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { Dimensions, Image, Pressable, Text, View } from "react-native";
@@ -6,7 +7,10 @@ import { Modalize } from "react-native-modalize";
 import { AntDesign, Ionicons, FontAwesome5 } from "react-native-vector-icons";
 const { width, height } = Dimensions.get("window");
 const PostItem = ({ post }) => {
-  const { avatar, name, time, audience, text, images, like, cmt } = post;
+  const navigation = useNavigation();
+  const { avatar, name, time, audience, text, images, like, cmt, liked } = post;
+  //like
+  const [isLiked, setIsLiked] = useState(liked);
   //image
   const imgsLen = images?.length;
   const [imgSize, setImgSize] = useState({ width: 0.1, height: 0 });
@@ -75,7 +79,11 @@ const PostItem = ({ post }) => {
             </View>
           )}
           {images.slice(0, 5).map((img, index) => (
-            <View key={index} className="p-[2px]">
+            <Pressable
+              onPress={() => navigation.navigate("ImageDetail")}
+              key={index}
+              className="p-[2px]"
+            >
               <Image
                 key={index}
                 source={{ uri: img }}
@@ -115,12 +123,12 @@ const PostItem = ({ post }) => {
                     : { width: width / 3 - 4, height: (height * 1) / 5 }
                 }
               />
-            </View>
+            </Pressable>
           ))}
         </View>
       )}
       <View className="px-4 pb-2 flex-row items-center">
-        <View className="w-[18px] h-[18px] rounded-full flex items-center justify-center bg-blue-500">
+        <View className="w-[18px] h-[18px] rounded-full flex items-center justify-center bg-[#3b82f6]">
           <AntDesign
             name="like1"
             size={11}
@@ -133,15 +141,31 @@ const PostItem = ({ post }) => {
         <Text className="text-[15px] text-gray-700">{cmt} Comments</Text>
       </View>
       <View className="flex-row flex-1 border-t-[0.4px] border-t-gray-400">
-        <Pressable className="flex-1 flex-row items-center justify-center py-3">
-          <AntDesign name="like2" size={20} color="#4b5563" />
-          <Text className="text-[16px] font-medium text-gray-600 ml-1">
-            Like
-          </Text>
+        <Pressable
+          onPress={() => setIsLiked(!isLiked)}
+          style={({ pressed }) => [
+            { transform: [{ scale: pressed ? 0.95 : 1 }], flex: 1 },
+          ]}
+        >
+          <View className="flex-row items-center justify-center py-3">
+            <AntDesign
+              name={isLiked ? "like1" : "like2"}
+              size={20}
+              color={isLiked ? "#3b82f6" : "#4b5563"}
+            />
+            <Text
+              className="text-[15px] ml-1 font-semibold"
+              style={{
+                color: isLiked ? "#3b82f6" : "#4b5563",
+              }}
+            >
+              Like
+            </Text>
+          </View>
         </Pressable>
         <Pressable className="flex-1 flex-row items-center justify-center">
           <Ionicons name="chatbox-outline" size={20} color="#4b5563" />
-          <Text className="text-[16px] font-medium text-gray-600 ml-1">
+          <Text className="text-[15px] font-semibold text-gray-600 ml-1">
             Comment
           </Text>
         </Pressable>
