@@ -1,3 +1,4 @@
+import { useActionSheet } from "@expo/react-native-action-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
 import {
@@ -5,95 +6,124 @@ import {
   Dimensions,
   Image,
   Pressable,
-  StatusBar,
   Text,
   View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import CarouselIndicator from "../components/CarouselIndicator";
+import ImageCarousel from "../components/ImageCarousel";
 const { width, height } = Dimensions.get("window");
 
-const ImageDetailScreen = ({ navigation }) => {
+const ImageDetailScreen = ({ navigation, route }) => {
+  const { images, currentIndex } = route.params;
+
+  //Carousel
+  const scrollAnimated = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = useState(0);
   const handleOnViewableItemsChanged = useRef(({ viewableItems }) => {
-    console.log(viewableItems);
     setIndex(viewableItems[0].index);
   }).current;
   const viewabilityConfig = useRef({
     itemVisiblePercentThreshold: 50,
   }).current;
-  const Images = [
-    "https://i.pinimg.com/564x/6f/7f/00/6f7f002468054e0a1e25697774c29760.jpg",
-    "https://i.pinimg.com/736x/58/5f/44/585f449058c0f2b4c061b3adc6088cac.jpg",
-    "https://i.pinimg.com/564x/76/87/26/768726858fcedde6e06d35d1c5405930.jpg",
-    "https://i.pinimg.com/564x/98/87/58/988758b1ea777e4d790f628be1fa0f7f.jpg",
-    "https://i.pinimg.com/564x/a4/f1/b9/a4f1b9fc7d4b0afcbe52a3265dfcad6d.jpg",
-  ];
-  const scrollAnimated = useRef(new Animated.Value(0)).current;
+  const getItemLayout = (data, index) => ({
+    length: width,
+    offset: width * index,
+    index,
+  });
+  // options Modal
+  const { showActionSheetWithOptions } = useActionSheet();
+  const optionsPress = () => {
+    const options = ["Save Photo", "Copy Photo", "Share", "Cancel"];
+    const cancelButtonIndex = 3;
+    const tintColor = "#3b82f6";
+    const cancelButtonTintColor = "#3b82f6";
+    showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        tintColor,
+        cancelButtonTintColor,
+      },
+      (selectedIndex) => {
+        switch (selectedIndex) {
+          case 0:
+            () => {};
+            break;
+          case 1:
+            () => {};
+            break;
+          case 2:
+            () => {};
+            break;
+          case cancelButtonIndex:
+          // cancel
+        }
+      }
+    );
+  };
   return (
-    <View className="flex-1 relative bg-[#242527]">
+    <View
+      className="flex-1 bg-[#242527]"
+      style={{ backgroundColor: "rgba(0,0,0,.8)" }}
+    >
+      {/* Header */}
       <LinearGradient
         colors={["rgba(0,0,0, 0.9)", "rgba(0,0,0,0)"]}
         start={{ x: 0.5, y: 0 }}
         end={{ x: 0.5, y: 1 }}
+        className="flex-row items-center justify-between h-20 px-3 z-20"
       >
-        <View className="flex-row items-center justify-between h-20 px-3">
-          <Pressable
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#3b82f6" : "#fff",
-                borderRadius: 14,
-              },
-            ]}
-            onPress={() => navigation.goBack()}
-          >
-            <View className="w-7 h-7 rounded-full flex items-center justify-center">
-              <Ionicons name="close" size={24} />
-            </View>
-          </Pressable>
-          <Text className="text-white text-lg font-medium">
-            {index + 1}/{Images.length}
-          </Text>
-          <Pressable onPress={() => console.log("press ...")}>
-            <Ionicons name="ellipsis-horizontal" size={24} color="#fff" />
-          </Pressable>
-        </View>
+        <Pressable
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#3b82f6" : "#fff",
+              borderRadius: 14,
+            },
+          ]}
+          onPress={() => navigation.goBack()}
+        >
+          <View className="w-7 h-7 rounded-full flex items-center justify-center">
+            <Ionicons name="close" size={24} />
+          </View>
+        </Pressable>
+        <Text className="text-white text-lg font-medium">
+          {index + 1}/{images.length}
+        </Text>
+        <Pressable onPress={optionsPress}>
+          <Ionicons name="ellipsis-horizontal" size={24} color="#fff" />
+        </Pressable>
       </LinearGradient>
-      <Animated.FlatList
-        data={Images}
-        renderItem={({ item, index }) => {
-          return (
-            <View
-              style={{ height: height - 80 * 2, width }}
-              className="flex items-center justify-center"
-            >
-              <Image
-                source={{ uri: item }}
-                style={{ height: height - 80 * 2, width, resizeMode: "cover" }}
-              />
-            </View>
-          );
-        }}
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        viewabilityConfig={viewabilityConfig}
-        onViewableItemsChanged={handleOnViewableItemsChanged}
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { x: scrollAnimated } } }],
-          { useNativeDriver: false }
-        )}
-      />
-      {Images.length > 1 && (
+      {/* Main */}
+      <View className="absolute w-full h-full z-10 items-center justify-center">
+        <Animated.FlatList
+          style={{ flexGrow: 0 }}
+          data={images}
+          renderItem={({ item, index }) => <ImageCarousel url={item} />}
+          horizontal
+          pagingEnabled
+          bounces={false}
+          showsHorizontalScrollIndicator={false}
+          viewabilityConfig={viewabilityConfig}
+          onViewableItemsChanged={handleOnViewableItemsChanged}
+          getItemLayout={getItemLayout}
+          initialScrollIndex={currentIndex}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { x: scrollAnimated } } }],
+            { useNativeDriver: false }
+          )}
+        />
+      </View>
+      {/* pagination */}
+      {images.length > 1 && (
         <LinearGradient
           colors={["rgba(0,0,0, 0.9)", "rgba(0,0,0,0)"]}
           start={{ x: 0.5, y: 1 }}
           end={{ x: 0.5, y: 0 }}
-          className="absolute bottom-0 h-20 flex items-center justify-center"
-          style={{ width }}
+          className="absolute w-full h-20 bottom-0 flex items-center justify-center z-20"
         >
           <CarouselIndicator
-            slidesCount={Images.length}
+            slidesCount={images.length}
             slideWidth={width}
             dotSize={12}
             dotSpace={8}

@@ -25,6 +25,7 @@ import CreatePostScreen from "../screens/CreatePostScreen";
 import PostAudienceScreen from "../screens/PostAudienceScreen";
 import AudienceFilterScreen from "../screens/AudienceFilterScreen";
 import ImageDetailScreen from "../screens/ImageDetailScreen";
+import CommentScreen from "../screens/CommentScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -119,8 +120,9 @@ const AppNavigation = () => {
       <Stack.Screen
         name="ImageDetail"
         component={ImageDetailScreen}
-        // options={{ gestureEnabled: false }}
+        options={{ gestureEnabled: false, presentation: "fullScreenModal" }}
       />
+      <Stack.Screen name="Comment" component={CommentScreen} />
     </Stack.Navigator>
   );
 
