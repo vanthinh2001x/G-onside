@@ -1,12 +1,21 @@
-import React from "react";
-import { Pressable, SafeAreaView, ScrollView, Text, View } from "react-native";
+import React, { useRef } from "react";
+import {
+  KeyboardAvoidingView,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { Ionicons } from "react-native-vector-icons";
-import CommentItem from "../components/CommentItem";
+import CommentComponent from "../components/CommentComponent";
+import CommentInput from "../components/CommentInput";
 import PostItem from "../components/PostItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 
 const CommentScreen = ({ navigation, route }) => {
   const { post } = route.params;
+  const cmtRef = useRef();
   return (
     <SafeAreaView style={AndroidSafeArea.AndroidSafeArea}>
       {/* Header */}
@@ -32,10 +41,13 @@ const CommentScreen = ({ navigation, route }) => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <PostItem post={post} isCmtScreen={true} />
         <View className="mt-4">
-          <CommentItem />
-          <CommentItem />
+          <CommentComponent cmtRef={cmtRef} />
+          <CommentComponent cmtRef={cmtRef} />
         </View>
       </ScrollView>
+      <KeyboardAvoidingView behavior="position">
+        <CommentInput cmtRef={cmtRef} />
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

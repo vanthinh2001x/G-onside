@@ -153,7 +153,11 @@ const PostItem = ({ post, isCmtScreen }) => {
         <Pressable
           onPress={() => setIsLiked(!isLiked)}
           style={({ pressed }) => [
-            { transform: [{ scale: pressed ? 0.95 : 1 }], flex: 1 },
+            {
+              transform: [{ scale: pressed ? 0.95 : 1 }],
+              opacity: pressed ? 0.85 : 1,
+              flex: 1,
+            },
           ]}
         >
           <View className="flex-row items-center justify-center py-3">
@@ -175,7 +179,11 @@ const PostItem = ({ post, isCmtScreen }) => {
         <Pressable
           onPress={() => navigation.navigate("Comment", { post })}
           style={({ pressed }) => [
-            { transform: [{ scale: pressed ? 0.95 : 1 }], flex: 1 },
+            {
+              transform: [{ scale: pressed ? 0.95 : 1 }],
+              opacity: pressed ? 0.85 : 1,
+              flex: 1,
+            },
           ]}
         >
           <View className="flex-row items-center justify-center py-3">

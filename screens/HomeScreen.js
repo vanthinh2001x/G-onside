@@ -50,15 +50,15 @@ function HomeScreen({ navigation }) {
       like: 8,
       cmt: 6,
       images: [
-        "https://by.com.vn/JUHF6",
-        "https://by.com.vn/4r3VP",
-        "https://by.com.vn/D3lmO",
-        "https://by.com.vn/GfrXe",
-        "https://by.com.vn/ycJhI",
-        "https://by.com.vn/wd3Hs",
-        "https://by.com.vn/4dZJD",
-        "https://by.com.vn/slXuq",
-        "https://by.com.vn/Ehz3W",
+        "https://i.pinimg.com/564x/8c/64/66/8c6466a0876790b08eefbba8f86435ad.jpg",
+        "https://i.pinimg.com/564x/ba/b8/2b/bab82b2041b5df5c570a5b5213afb546.jpg",
+        "https://i.pinimg.com/564x/bd/a0/3f/bda03f3e6f7f8de3b4fb97312340bb4c.jpg",
+        "https://i.pinimg.com/564x/b7/35/10/b735104b6d20266ebb419447c1ad87d1.jpg",
+        "https://i.pinimg.com/564x/e8/ca/cf/e8cacf123617d8f7e8bb5a1ebd49c14c.jpg",
+        "https://i.pinimg.com/564x/e1/25/7c/e1257c1c61bb3c6809eb320786870ce2.jpg",
+        "https://i.pinimg.com/564x/3a/f8/7a/3af87a210497d8999897424d4e48a289.jpg",
+        "https://i.pinimg.com/564x/3e/c9/ea/3ec9ead6e6e6740707e1cd7105e825d1.jpg",
+        "https://i.pinimg.com/564x/10/8f/80/108f808e9e8463a604a293273e688b2f.jpg",
       ],
       liked: false,
     },
@@ -142,7 +142,11 @@ function HomeScreen({ navigation }) {
               </Text>
             </View>
           </Pressable>
-          <TouchableOpacity className="mr-2" activeOpacity={0.8}>
+          <TouchableOpacity
+            className="mr-2"
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("CreatePost")}
+          >
             <Ionicons name="images" size={24} color="#46bc64" />
           </TouchableOpacity>
         </View>
