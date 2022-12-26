@@ -6,10 +6,12 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Pressable,
 } from "react-native";
 import Input from "../components/Input";
 import InputDate from "../components/InputDate";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
+import { Ionicons } from "react-native-vector-icons";
 
 const EditProfileScreen = ({ navigation }) => {
   const [date, setDate] = useState(new Date());
@@ -20,19 +22,36 @@ const EditProfileScreen = ({ navigation }) => {
       style={AndroidSafeArea.AndroidSafeArea}
       className="bg-white w-full h-full"
     >
-      <View className="flex-row items-center justify-between p-4 border-b-[1px] border-b-gray-100">
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
+      <View className="flex-row items-center justify-between p-2 border-b-[1px] border-b-gray-100">
+        <View className="w-16 h-9 flex items-start">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#dedfe1" : "transparent",
+                borderRadius: 100,
+              },
+            ]}
+          >
+            <View className="w-9 h-9 flex justify-center items-center rounded-full">
+              <Ionicons name="close" size={28} />
+            </View>
+          </Pressable>
+        </View>
+        <Text className="text-lg font-semibold">Edit Profile</Text>
+        <Pressable
+          onPress={() => {}}
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#0369a1" : "#3b82f6",
+              borderRadius: 6,
+            },
+          ]}
         >
-          <Text className="text-base font-semibold text-gray-900">Cancel</Text>
-        </TouchableOpacity>
-        <Text className="text-xl font-semibold text-gray-900">
-          Setting Profile
-        </Text>
-        <TouchableOpacity activeOpacity={0.6}>
-          <Text className="text-base font-semibold text-gray-900">Save</Text>
-        </TouchableOpacity>
+          <View className="flex items-center justify-center w-16 h-9 rounded-md">
+            <Text className="text-base font-medium text-white">Save</Text>
+          </View>
+        </Pressable>
       </View>
       <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
         <ScrollView

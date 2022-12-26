@@ -30,8 +30,8 @@ const PostAudienceScreen = ({ navigation }) => {
             </View>
           </Pressable>
         </View>
-        <Text className="text-lg font-medium">Post audience</Text>
-        <View className="w-16 h-9"></View>
+        <Text className="text-lg font-semibold">Post Audience</Text>
+        <View className="w-16 h-9" />
       </View>
       {/* Container  */}
       <ScrollView>

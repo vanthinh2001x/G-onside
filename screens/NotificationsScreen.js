@@ -1,19 +1,19 @@
 import {
+  Pressable,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
   Switch,
-  RefreshControl,
+  Text,
+  View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 
-import React, { useRef, useState, useCallback } from "react";
+import { Portal } from "@gorhom/portal";
+import React, { useCallback, useRef, useState } from "react";
+import { Modalize } from "react-native-modalize";
 import NotificationItem from "../components/NotificationItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
-import { Modalize } from "react-native-modalize";
-import { Portal } from "@gorhom/portal";
 const NotificationsScreen = ({ navigation }) => {
   const notifications = [
     {
@@ -183,15 +183,14 @@ const NotificationsScreen = ({ navigation }) => {
           <Text className="font-bold text-[22px] text-gray-900">
             Notification
           </Text>
-          <TouchableOpacity
-            activeOpacity={0.6}
+          <Pressable
             onPress={() => modalizeRef.current?.open()}
             className="absolute right-4 translate-y-[2px]"
           >
             <Text className="text-base font-semibold">
-              <Ionicons name="settings-outline" size={25} />
+              <Ionicons name="settings" size={25} />
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
         <ScrollView
           refreshControl={
@@ -232,17 +231,21 @@ const NotificationsScreen = ({ navigation }) => {
                   style={{ transform: [{ scale: 0.84 }] }}
                 />
               </View>
-              <TouchableOpacity
-                className="flex-row items-center py-2 px-6"
+              <Pressable
+                style={({ pressed }) => [
+                  { backgroundColor: pressed ? "#e4e4e4" : "white" },
+                ]}
                 onPress={() => modalizeRef.current.close()}
               >
-                <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
-                  <Ionicons name="mail-open" color="#111827" size={24} />
+                <View className="flex-row items-center py-2 px-6">
+                  <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
+                    <Ionicons name="mail-open" color="#111827" size={24} />
+                  </View>
+                  <Text className="text-lg font-medium text-gray-900">
+                    Mark all notifications as read
+                  </Text>
                 </View>
-                <Text className="text-lg font-medium text-gray-900">
-                  Mark all notifications as read
-                </Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
         </Modalize>

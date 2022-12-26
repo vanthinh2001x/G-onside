@@ -118,8 +118,8 @@ const AudienceFilterScreen = ({ route, navigation }) => {
             </View>
           </Pressable>
         </View>
-        <Text className="text-lg font-medium">
-          {type === "designated" ? "Designated " : "Except "}colleagues{" "}
+        <Text className="text-lg font-semibold">
+          {type === "designated" ? "Designated " : "Except "}Colleagues
         </Text>
         <Pressable
           onPress={() => {}}

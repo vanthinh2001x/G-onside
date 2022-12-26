@@ -41,7 +41,7 @@ const CreatePostScreen = ({ navigation }) => {
             </View>
           </Pressable>
         </View>
-        <Text className="text-lg font-medium">Create Post</Text>
+        <Text className="text-lg font-semibold">Create Post</Text>
         <Pressable
           onPress={() => {}}
           style={({ pressed }) => [

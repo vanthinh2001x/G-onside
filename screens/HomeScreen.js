@@ -105,9 +105,7 @@ function HomeScreen({ navigation }) {
           onPress={() => {}}
         >
           <View className="h-[38px] w-[38px] flex items-center justify-center">
-            <Text className="text-base font-semibold translate-x-[2px]">
-              <Ionicons name="create" size={24} />
-            </Text>
+            <Ionicons name="create" size={24} />
           </View>
         </Pressable>
       </View>

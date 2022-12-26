@@ -1,12 +1,12 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  RefreshControl,
-} from "react-native";
 import React, { useCallback, useState } from "react";
+import {
+  Pressable,
+  RefreshControl,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  View,
+} from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import UserItem from "../components/UserItem";
 
@@ -21,23 +21,30 @@ const GroupMemberListScreen = ({ navigation, route }) => {
   }, []);
   return (
     <SafeAreaView className="bg-white flex-1">
-      <View className="relative flex-row items-center justify-center py-2 border-b-[1px] border-b-gray-100">
-        <Text className="font-bold text-lg text-gray-900">{name}</Text>
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          className="absolute left-4"
-        >
-          <Text className="text-base font-semibold">
-            <Ionicons name="arrow-back" size={26} />
-          </Text>
-        </TouchableOpacity>
+      <View className="flex-row items-center justify-between p-2 border-b-[1px] border-b-gray-100">
+        <View className="w-16 h-9 flex items-start">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#dedfe1" : "transparent",
+                borderRadius: 100,
+              },
+            ]}
+          >
+            <View className="w-9 h-9 flex justify-center items-center rounded-full">
+              <Ionicons name="arrow-back" size={28} />
+            </View>
+          </Pressable>
+        </View>
+        <Text className="text-lg font-semibold">{name}</Text>
+        <View className="w-16" />
       </View>
       <ScrollView
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        className="flex-1 px-4 pt-2"
+        className="flex-1 pt-2"
       >
         {users.map((user, index) => (
           <UserItem user={user} key={index} />

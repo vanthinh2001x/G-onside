@@ -1,10 +1,10 @@
 import React from "react";
 import {
   KeyboardAvoidingView,
+  Pressable,
   SafeAreaView,
   ScrollView,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
@@ -17,7 +17,26 @@ const ChangePasswordScreen = ({ navigation }) => {
       style={AndroidSafeArea.AndroidSafeArea}
       className="bg-white w-full h-full"
     >
-      <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+      <View className="flex-row items-center justify-between p-2 border-b-[1px] border-b-gray-100">
+        <View className="w-16 h-9 flex items-start">
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#dedfe1" : "transparent",
+                borderRadius: 100,
+              },
+            ]}
+          >
+            <View className="w-9 h-9 flex justify-center items-center rounded-full">
+              <Ionicons name="chevron-back" size={28} />
+            </View>
+          </Pressable>
+        </View>
+        <Text className="text-lg font-semibold">Change Password</Text>
+        <View className="w-16" />
+      </View>
+      {/* <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.goBack()}
@@ -27,10 +46,23 @@ const ChangePasswordScreen = ({ navigation }) => {
             <Ionicons name="chevron-back" size={28} />
           </Text>
         </TouchableOpacity>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#dedfe1" : "transparent",
+              borderRadius: 100,
+            },
+          ]}
+        >
+          <Text className="text-base font-semibold">
+            <Ionicons name="chevron-back" size={28} />
+          </Text>
+        </Pressable>
         <Text className="text-xl font-semibold text-gray-900">
           Change password
         </Text>
-      </View>
+      </View> */}
       <ScrollView
         pagingEnabled
         showsVerticalScrollIndicator={false}

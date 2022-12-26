@@ -1,14 +1,7 @@
 import { useActionSheet } from "@expo/react-native-action-sheet";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
-import {
-  Animated,
-  Dimensions,
-  Image,
-  Pressable,
-  Text,
-  View,
-} from "react-native";
+import { Animated, Dimensions, Pressable, Text, View } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import CarouselIndicator from "../components/CarouselIndicator";
 import ImageCarousel from "../components/ImageCarousel";
@@ -16,7 +9,6 @@ const { width, height } = Dimensions.get("window");
 
 const ImageDetailScreen = ({ navigation, route }) => {
   const { images, currentIndex } = route.params;
-
   //Carousel
   const scrollAnimated = useRef(new Animated.Value(0)).current;
   const [index, setIndex] = useState(0);

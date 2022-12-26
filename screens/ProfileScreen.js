@@ -4,13 +4,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useRef, useState } from "react";
 import {
   Image,
+  Pressable,
+  RefreshControl,
   SafeAreaView,
   ScrollView,
+  Switch,
   Text,
   TouchableOpacity,
   View,
-  RefreshControl,
-  Switch,
 } from "react-native";
 import { Modalize } from "react-native-modalize";
 import { Ionicons } from "react-native-vector-icons";
@@ -104,17 +105,23 @@ const ProfileScreen = ({ navigation }) => {
       className="bg-white flex-1"
       style={AndroidSafeArea.AndroidSafeArea}
     >
-      <View className="flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-        <Text className="font-bold text-[22px] text-gray-900">Profile</Text>
-        <TouchableOpacity
-          activeOpacity={0.6}
+      <View className="flex-row items-center justify-between py-4 px-4 border-b-[1px] border-b-gray-100">
+        <View className="w-9" />
+        <Text className="text-[22px] font-bold text-gray-900">Profile</Text>
+        <Pressable
           onPress={() => navigation.navigate("EditProfile")}
-          className="absolute right-4 translate-y-[2px]"
+          style={({ pressed }) => [
+            {
+              backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
+              transform: [{ scale: pressed ? 0.95 : 1 }],
+              borderRadius: 18,
+            },
+          ]}
         >
-          <Text className="text-base font-semibold">
-            <Ionicons name="create-outline" size={26} />
-          </Text>
-        </TouchableOpacity>
+          <View className="w-9 h-9 rounded-full flex items-center justify-center">
+            <Ionicons name="create-outline" size={24} />
+          </View>
+        </Pressable>
       </View>
       <ScrollView
         refreshControl={
@@ -124,7 +131,7 @@ const ProfileScreen = ({ navigation }) => {
         <View className="flex-row items-center px-6 pt-8">
           <View>
             <TouchableOpacity
-              activeOpacity={0.9}
+              activeOpacity={0.6}
               onPress={() => avatarSheetRef.current.open()}
             >
               <Image
@@ -198,8 +205,10 @@ const ProfileScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            activeOpacity={0.6}
+          <Pressable
+            style={({ pressed }) => [
+              { backgroundColor: pressed ? "#e4e4e4" : "white" },
+            ]}
             onPress={() => navigation.navigate("ChangePassword")}
           >
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
@@ -213,15 +222,20 @@ const ProfileScreen = ({ navigation }) => {
                 color="#1e293b"
               />
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6} onPress={logoutPress}>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [
+              { backgroundColor: pressed ? "#e4e4e4" : "white" },
+            ]}
+            onPress={logoutPress}
+          >
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
               <Ionicons name="log-out-outline" size={26} color="#1e293b" />
               <Text className="flex-1 text-lg font-semibold text-slate-800">
                 Logout
               </Text>
             </View>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       </ScrollView>
       {/* BottomSheet */}

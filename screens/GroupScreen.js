@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useRef } from "react";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import GroupItem from "../components/GroupItem";
 import SearchBar from "../components/SearchBar";
@@ -276,9 +276,11 @@ const GroupScreen = ({ navigation }) => {
       ],
     },
   ];
+  const searchRef = useRef();
+
   const UsersTap = () => {
     return (
-      <View className="bg-white px-4 flex-1">
+      <View className="bg-white flex-1">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="pt-2">
             {users.map((user, index) => (
@@ -291,7 +293,7 @@ const GroupScreen = ({ navigation }) => {
   };
   const GroupsTab = () => {
     return (
-      <View className="bg-white px-4 flex-1">
+      <View className="bg-white flex-1">
         <ScrollView showsVerticalScrollIndicator={false}>
           <View className="pt-2">
             {groups.map((group, index) => (
@@ -306,20 +308,27 @@ const GroupScreen = ({ navigation }) => {
   return (
     <>
       <View className="bg-white pt-5 px-4 pb-3">
-        <View className="flex-row items-center justify-center p-4">
+        <View className="flex-row items-center justify-between py-4">
+          <View className="w-9" />
           <Text className="text-[22px] font-bold text-gray-900">Users</Text>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {}}
-            className="absolute right-2 translate-y-[2px]"
+          <Pressable
+            onPress={() => searchRef.current.focus()}
+            style={({ pressed }) => [
+              {
+                backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
+                transform: [{ scale: pressed ? 0.95 : 1 }],
+                borderRadius: 18,
+              },
+            ]}
           >
-            <Text className="text-base font-semibold">
-              <Ionicons name="search" size={26} />
-            </Text>
-          </TouchableOpacity>
+            <View className="w-9 h-9 rounded-full flex items-center justify-center">
+              <Ionicons name="search" size={24} />
+            </View>
+          </Pressable>
         </View>
         <View>
           <SearchBar
+            searchRef={searchRef}
             onSearchChange={() => {}}
             inputPlaceHolder="Search for user"
           />
