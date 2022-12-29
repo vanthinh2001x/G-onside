@@ -43,7 +43,7 @@ const UserItem = ({ user }) => {
       >
         <View className="bg-white h-auto w-[84%] px-4 py-6 rounded-2xl">
           <View className="items-center">
-            <TouchableOpacity activeOpacity={0.8} onPress={() => {}}>
+            <TouchableOpacity activeOpacity={0.6} onPress={() => {}}>
               <Image
                 source={{
                   uri: user.avatar,
@@ -66,7 +66,7 @@ const UserItem = ({ user }) => {
           </View>
           <View className="flex-row items-center gap-x-4">
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.6}
               className="border-2 border-[#2e8dfa] bg-[#2e8dfa] flex-1 flex-row items-center justify-center py-2 rounded-lg"
             >
               <Icon name="chatbubble-ellipses" size={20} color="white" />
@@ -75,7 +75,7 @@ const UserItem = ({ user }) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              activeOpacity={0.8}
+              activeOpacity={0.6}
               className="border-2 border-[#2e8dfa] flex-1 flex-row items-center justify-center py-2 rounded-lg"
             >
               <Icon name="call" size={20} color="#2e8dfa" />
