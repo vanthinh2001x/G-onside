@@ -26,6 +26,7 @@ import PostAudienceScreen from "../screens/PostAudienceScreen";
 import AudienceFilterScreen from "../screens/AudienceFilterScreen";
 import ImageDetailScreen from "../screens/ImageDetailScreen";
 import CommentScreen from "../screens/CommentScreen";
+import CameraScreen from "../screens/CameraScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -105,6 +106,11 @@ const AppNavigation = () => {
       <Stack.Screen
         name="CreatePost"
         component={CreatePostScreen}
+        options={{ presentation: "fullScreenModal" }}
+      />
+      <Stack.Screen
+        name="Camera"
+        component={CameraScreen}
         options={{ presentation: "fullScreenModal" }}
       />
       <Stack.Screen

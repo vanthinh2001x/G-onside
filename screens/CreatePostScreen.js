@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
+import React, { createRef, useEffect, useRef, useState } from "react";
 import {
+  Button,
   Dimensions,
   Image,
   KeyboardAvoidingView,
-  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -13,23 +15,14 @@ import {
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
 import ButtonChangeBg from "../components/ButtonChangeBg";
-import * as ImagePicker from "expo-image-picker";
+import VideoPost from "../components/VideoPost";
 
-const { width } = Dimensions.get("window");
-const imgUrl =
-  "https://i.pinimg.com/736x/4a/18/ea/4a18ea768f70d1ed5537385526a83b0c.jpg";
-
+const { width, height } = Dimensions.get("window");
 const CreatePostScreen = ({ navigation }) => {
-  const [imgSize, setImgSize] = useState({ width: 0.1, height: 0 });
-  useEffect(() => {
-    Image.getSize(imgUrl, (width, height) => {
-      setImgSize({ width, height });
-    });
-  }, []);
   const [text, setText] = useState("");
-  const [media, setMedia] = useState([]);
-  const [file, setFile] = useState([]);
-  //image Picker
+  const [mediaFile, setMediaFile] = useState([]);
+  const [documentFile, setDocumentFile] = useState([]);
+  //images Picker
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -41,15 +34,30 @@ const CreatePostScreen = ({ navigation }) => {
     });
     if (result.selected) {
       result.selected = result.selected.map(
-        (item, index) => (item = { uri: item.uri, type: item.type })
+        (item) => (item = { uri: item.uri, type: item.type })
       );
-      setMedia([...media, ...result.selected]);
+      setMediaFile([...mediaFile, ...result.selected]);
     }
   };
   const handleRemoveImage = (index) => {
-    const newMedia = media.filter((_, idx) => idx !== index);
-    setMedia(newMedia);
+    const newMediaFile = mediaFile.filter((_, idx) => idx !== index);
+    setMediaFile(newMediaFile);
   };
+  //videos
+  const videoRef = useRef([]);
+  // const [videoStatus, setVideoStatus]
+  useEffect(() => {
+    videoRef.current = Array(mediaFile.length)
+      .fill()
+      .map((_, i) => videoRef.current[i] || createRef());
+  }, [mediaFile]);
+  // Documents Picker
+  const pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    console.log(result);
+    setDocumentFile([...documentFile, result]);
+  };
+
   return (
     <View className="bg-white flex-1">
       {/* header */}
@@ -95,7 +103,7 @@ const CreatePostScreen = ({ navigation }) => {
         </Pressable>
       </View>
       {/* container  */}
-      <ScrollView>
+      <ScrollView className="mb-11" showsVerticalScrollIndicator={false}>
         {/* Title */}
         <View className="flex-row p-3">
           <Image
@@ -133,8 +141,8 @@ const CreatePostScreen = ({ navigation }) => {
           value={text}
           onChangeText={(text) => setText(text)}
         />
-        {media.map((item, index) => (
-          <View key={index} className="mb-4">
+        {mediaFile.map((item, index) => (
+          <View key={index} className="mb-4 bg-black">
             <TouchableOpacity
               onPress={() => handleRemoveImage(index)}
               activeOpacity={0.6}
@@ -144,14 +152,22 @@ const CreatePostScreen = ({ navigation }) => {
                 <Ionicons name="close" size={24} color="#fff" />
               </Text>
             </TouchableOpacity>
-            <Image
-              source={{ uri: item.uri }}
-              style={{
-                width,
-                height: (width * imgSize.height) / imgSize.width,
-              }}
-              // resizeMode="cover"
-            />
+            {item.type === "image" ? (
+              <Image
+                source={{ uri: item.uri }}
+                style={{
+                  width,
+                  height: (3 / 4) * height,
+                }}
+                // resizeMode="contain"
+              />
+            ) : (
+              <VideoPost
+                uri={item.uri}
+                width={width}
+                height={(3 / 4) * height}
+              />
+            )}
           </View>
         ))}
       </ScrollView>
@@ -171,22 +187,24 @@ const CreatePostScreen = ({ navigation }) => {
           }}
         >
           {[
-            { name: "camera", onPress: () => {}, color: "#f1be1a" },
+            {
+              name: "camera",
+              onPress: () => navigation.navigate("Camera"),
+              color: "#f1be1a",
+            },
             { name: "images", onPress: pickImage, color: "#46bc64" },
-            { name: "document-text", onPress: () => {}, color: "#1c76ef" },
+            { name: "document-text", onPress: pickDocument, color: "#1c76ef" },
           ].map((item, index) => (
             <ButtonChangeBg
               key={index}
               onPress={item.onPress}
               styles={{
-                width: 60,
-                height: 44,
-                justifyContent: "center",
-                alignItems: "center",
                 borderRadius: 8,
               }}
             >
-              <Ionicons name={item.name} size={32} color={item.color} />
+              <View className="w-16 h-11 justify-center items-center">
+                <Ionicons name={item.name} size={32} color={item.color} />
+              </View>
             </ButtonChangeBg>
           ))}
         </View>
