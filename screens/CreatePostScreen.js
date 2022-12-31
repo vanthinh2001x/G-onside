@@ -2,11 +2,9 @@ import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import React, { createRef, useEffect, useRef, useState } from "react";
 import {
-  Button,
   Dimensions,
   Image,
   KeyboardAvoidingView,
-  Pressable,
   ScrollView,
   Text,
   TextInput,
@@ -18,7 +16,7 @@ import ButtonChangeBg from "../components/ButtonChangeBg";
 import VideoPost from "../components/VideoPost";
 
 const { width, height } = Dimensions.get("window");
-const CreatePostScreen = ({ navigation }) => {
+const CreatePostScreen = ({ navigation, route }) => {
   const [text, setText] = useState("");
   const [mediaFile, setMediaFile] = useState([]);
   const [documentFile, setDocumentFile] = useState([]);
@@ -45,7 +43,6 @@ const CreatePostScreen = ({ navigation }) => {
   };
   //videos
   const videoRef = useRef([]);
-  // const [videoStatus, setVideoStatus]
   useEffect(() => {
     videoRef.current = Array(mediaFile.length)
       .fill()
@@ -57,36 +54,30 @@ const CreatePostScreen = ({ navigation }) => {
     console.log(result);
     setDocumentFile([...documentFile, result]);
   };
+  const handleRemoveDocument = (index) => {
+    const newDocumentFile = documentFile.filter((_, idx) => idx !== index);
+    setDocumentFile(newDocumentFile);
+  };
+  //Image from camera
+  useEffect(() => {
+    if (route.params?.image) {
+      setMediaFile([...mediaFile, route.params.image]);
+    }
+  }, [route.params?.image]);
 
   return (
     <View className="bg-white flex-1">
       {/* header */}
       <View className="flex-row items-center justify-between bg-gray-100 p-2 pt-7">
         <View className="w-16 h-9 flex items-start">
-          <Pressable
-            onPress={() => navigation.goBack()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#dedfe1" : "transparent",
-                borderRadius: 100,
-              },
-            ]}
-          >
-            <View className="w-9 h-9 flex justify-center items-center rounded-full">
+          <ButtonChangeBg radius={100}>
+            <View className="w-10 h-10 flex justify-center items-center rounded-full">
               <Ionicons name="close" size={28} />
             </View>
-          </Pressable>
+          </ButtonChangeBg>
         </View>
         <Text className="text-lg font-semibold">Create Post</Text>
-        <Pressable
-          onPress={() => {}}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#0369a1" : "#3b82f6",
-              borderRadius: 6,
-            },
-          ]}
-        >
+        <ButtonChangeBg bg={"#3b82f6"} bgPress={"#0369a1"} radius={6}>
           <View
             className={`flex items-center justify-center w-16 h-9 rounded-md ${
               !text && "bg-[#e4e5ea]"
@@ -100,7 +91,7 @@ const CreatePostScreen = ({ navigation }) => {
               Post
             </Text>
           </View>
-        </Pressable>
+        </ButtonChangeBg>
       </View>
       {/* container  */}
       <ScrollView className="mb-11" showsVerticalScrollIndicator={false}>
@@ -112,23 +103,18 @@ const CreatePostScreen = ({ navigation }) => {
           />
           <View className="ml-2 flex items-start">
             <Text className="text-[16px] font-semibold">Pham Van Thinh</Text>
-            <Pressable
+            <ButtonChangeBg
+              scale={0.98}
+              radius={4}
+              styles={{ marginTop: 4 }}
               onPress={() => navigation.navigate("PostAudience")}
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? "#dedfe1" : "white",
-                  transform: [{ scale: pressed ? 0.98 : 1 }],
-                  borderRadius: 4,
-                  marginTop: 4,
-                },
-              ]}
             >
               <View className="flex-row items-center px-1 py-[2px] border-[0.5px] border-gray-400 rounded">
                 <Ionicons name="earth" size={14} color="#656565" />
                 <Text className="mx-1 text-[#656565]">Public</Text>
                 <Ionicons name="caret-down" size={12} color="#656565" />
               </View>
-            </Pressable>
+            </ButtonChangeBg>
           </View>
         </View>
         {/* Input */}
@@ -141,6 +127,26 @@ const CreatePostScreen = ({ navigation }) => {
           value={text}
           onChangeText={(text) => setText(text)}
         />
+        {documentFile.length > 0 && (
+          <View className="px-3 mb-3">
+            {documentFile.map((item, index) => (
+              <View className="flex-row items-center mb-2">
+                <ButtonChangeBg
+                  onPress={() => handleRemoveDocument(index)}
+                  bg={"#ef4444"}
+                  bgPress={"#b91c1c"}
+                  radius={4}
+                  styles={{ marginRight: 4 }}
+                >
+                  <Ionicons name="close-outline" size={20} color="#fff" />
+                </ButtonChangeBg>
+                <Text className="underline text-[15px] text-blue-600">
+                  {item.name}
+                </Text>
+              </View>
+            ))}
+          </View>
+        )}
         {mediaFile.map((item, index) => (
           <View key={index} className="mb-4 bg-black">
             <TouchableOpacity

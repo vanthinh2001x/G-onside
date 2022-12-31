@@ -102,7 +102,11 @@ function HomeScreen({ navigation }) {
               borderRadius: 19,
             },
           ]}
-          onPress={() => {}}
+          onPress={() =>
+            navigation.navigate("WebView", {
+              uri: "https://s1.g-doc.g-on.vn/Resources/YBE21EFtcr4/2022/12/30/vNu5NI997ns/PwBS7I4hAmjwxfHLJq2wIQ.docx",
+            })
+          }
         >
           <View className="h-[38px] w-[38px] flex items-center justify-center">
             <Ionicons name="create" size={24} />

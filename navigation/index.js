@@ -27,6 +27,7 @@ import AudienceFilterScreen from "../screens/AudienceFilterScreen";
 import ImageDetailScreen from "../screens/ImageDetailScreen";
 import CommentScreen from "../screens/CommentScreen";
 import CameraScreen from "../screens/CameraScreen";
+import WebViewScreen from "../screens/WebViewScreen";
 
 const AppNavigation = () => {
   const [initialRouteName, setInitialRouteName] = useState("");
@@ -103,6 +104,7 @@ const AppNavigation = () => {
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
       <Stack.Screen name="GroupMember" component={GroupMemberListScreen} />
+      <Stack.Screen name="WebView" component={WebViewScreen} />
       <Stack.Screen
         name="CreatePost"
         component={CreatePostScreen}
