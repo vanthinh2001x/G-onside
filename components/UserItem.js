@@ -3,6 +3,7 @@ import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import Modal from "react-native-modal";
 import Icon from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import ButtonChangeBg from "./ButtonChangeBg";
 
 const UserItem = ({ user }) => {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -11,12 +12,7 @@ const UserItem = ({ user }) => {
   };
   return (
     <>
-      <Pressable
-        style={({ pressed }) => [
-          { backgroundColor: pressed ? "#dedfe1" : "white" },
-        ]}
-        onPress={toggleModal}
-      >
+      <ButtonChangeBg onPress={toggleModal}>
         <View className="flex-row items-center px-4 py-2">
           <Image
             source={{
@@ -31,7 +27,8 @@ const UserItem = ({ user }) => {
             <Text className="text-[14px] text-gray-500">{user.position}</Text>
           </View>
         </View>
-      </Pressable>
+      </ButtonChangeBg>
+
       <Modal
         backdropColor="#ccc"
         backdropOpacity={0.6}

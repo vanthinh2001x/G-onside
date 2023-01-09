@@ -4,6 +4,7 @@ import { Pressable } from "react-native";
 const ButtonChangeBg = ({
   children,
   onPress,
+  disabled,
   bg,
   bgPress,
   scale,
@@ -12,6 +13,7 @@ const ButtonChangeBg = ({
 }) => {
   return (
     <Pressable
+      disabled={disabled}
       onPress={onPress ? onPress : () => {}}
       style={({ pressed }) => [
         {

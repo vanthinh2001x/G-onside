@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
 import {
   Image,
-  Pressable,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -10,6 +9,7 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import PostItem from "../components/PostItem";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
 function HomeScreen({ navigation }) {
@@ -94,14 +94,11 @@ function HomeScreen({ navigation }) {
             className="w-[100%] h-[100%]"
           />
         </View>
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
-              transform: [{ scale: pressed ? 0.95 : 1 }],
-              borderRadius: 19,
-            },
-          ]}
+        <ButtonChangeBg
+          bg={"#e4e5ea"}
+          bgPress={"#cdced3"}
+          scale={0.95}
+          radius={19}
           onPress={() =>
             navigation.navigate("WebView", {
               uri: "https://s1.g-doc.g-on.vn/Resources/YBE21EFtcr4/2022/12/30/vNu5NI997ns/PwBS7I4hAmjwxfHLJq2wIQ.docx",
@@ -111,7 +108,7 @@ function HomeScreen({ navigation }) {
           <View className="h-[38px] w-[38px] flex items-center justify-center">
             <Ionicons name="create" size={24} />
           </View>
-        </Pressable>
+        </ButtonChangeBg>
       </View>
       <View />
       <ScrollView
@@ -126,24 +123,15 @@ function HomeScreen({ navigation }) {
             source={require("../assets/avatar.jpg")}
             className="w-[42] h-[42] rounded-full"
           />
-          <Pressable
+          <ButtonChangeBg
+            radius={6}
             onPress={() => navigation.navigate("CreatePost")}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#dedfe1" : "white",
-                flex: 1,
-                marginHorizontal: 12,
-                padding: 4,
-                borderRadius: 6,
-              },
-            ]}
+            styles={{ flex: 1, marginHorizontal: 12 }}
           >
-            <View className="h-8 flex justify-center">
-              <Text className="text-base text-gray-900 ">
-                Share with friend
-              </Text>
+            <View className="h-8 flex justify-center p-1">
+              <Text className="text-base text-gray-900">Share with friend</Text>
             </View>
-          </Pressable>
+          </ButtonChangeBg>
           <TouchableOpacity
             className="mr-2"
             activeOpacity={0.8}

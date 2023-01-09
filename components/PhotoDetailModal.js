@@ -1,4 +1,5 @@
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { Ionicons } from "react-native-vector-icons";
 import { Portal } from "@gorhom/portal";
 import React, { useCallback, useEffect, useState } from "react";
 import {
@@ -22,6 +23,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoInvisible } from "../app/features/photoModalSlice";
+import ButtonChangeBg from "./ButtonChangeBg";
 
 const { width, height } = Dimensions.get("window");
 
@@ -158,19 +160,37 @@ const PhotoDetailModal = () => {
                     className="absolute left-0 right-0 top-5 z-10 flex-row items-center justify-between px-6"
                     style={opacityStyle}
                   >
-                    <TouchableOpacity
+                    <ButtonChangeBg
                       onPress={onBackPress}
-                      className="w-7 h-7 rounded-full justify-center items-center bg-white"
+                      bg={"#fff"}
+                      bgPress={"#3b82f6"}
+                      radius={14}
                     >
-                      <AntDesign name="close" size={20} color="#222" />
-                    </TouchableOpacity>
+                      <View className="w-7 h-7 rounded-full justify-center items-center">
+                        <Ionicons name="close" size={20} color="#222" />
+                      </View>
+                    </ButtonChangeBg>
                     <View className="flex-row">
-                      <TouchableOpacity onPress={() => {}}>
-                        <AntDesign name="sharealt" size={22} color="#fff" />
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => {}} className="ml-5">
-                        <AntDesign name="download" size={22} color="#fff" />
-                      </TouchableOpacity>
+                      <Pressable>
+                        {({ pressed }) => (
+                          <Ionicons
+                            name={
+                              pressed ? "share-social" : "share-social-outline"
+                            }
+                            size={24}
+                            color={pressed ? "#3b82f6" : "#fff"}
+                          />
+                        )}
+                      </Pressable>
+                      <Pressable className="ml-5">
+                        {({ pressed }) => (
+                          <AntDesign
+                            name="download"
+                            size={24}
+                            color={pressed ? "#3b82f6" : "#fff"}
+                          />
+                        )}
+                      </Pressable>
                     </View>
                   </Animated.View>
                 )}

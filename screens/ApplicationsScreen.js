@@ -1,14 +1,9 @@
 import React, { useCallback, useRef, useState } from "react";
-import {
-  Pressable,
-  RefreshControl,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { RefreshControl, ScrollView, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import G_INS from "../assets/g-ins.svg";
 import G_TLC from "../assets/g-tlc.svg";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import SearchBar from "../components/SearchBar";
 
 const ApplicationsScreen = () => {
@@ -29,20 +24,17 @@ const ApplicationsScreen = () => {
           <Text className="text-[22px] font-bold text-gray-900">
             Applications
           </Text>
-          <Pressable
+          <ButtonChangeBg
+            bg={"#e4e5ea"}
+            bgPress={"#cdced3"}
+            scale={0.95}
+            radius={18}
             onPress={() => searchRef.current.focus()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
-                transform: [{ scale: pressed ? 0.95 : 1 }],
-                borderRadius: 18,
-              },
-            ]}
           >
             <View className="w-9 h-9 rounded-full flex items-center justify-center">
               <Ionicons name="search" size={24} />
             </View>
-          </Pressable>
+          </ButtonChangeBg>
         </View>
         <View>
           <SearchBar
@@ -63,17 +55,8 @@ const ApplicationsScreen = () => {
             Insider Information Management
           </Text>
           <View className="flex-row">
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? "#dedfe1" : "white",
-                  width: 140,
-                  padding: 12,
-                  borderRadius: 8,
-                },
-              ]}
-            >
-              <View className="items-center">
+            <ButtonChangeBg radius={8}>
+              <View className="items-center w-[140px] p-3">
                 <View className="border-2 border-blue-400 h-20 w-20 rounded-full flex items-center justify-center">
                   <G_INS height={78} width={78} />
                 </View>
@@ -84,7 +67,7 @@ const ApplicationsScreen = () => {
                   inside.g-on.vn
                 </Text>
               </View>
-            </Pressable>
+            </ButtonChangeBg>
           </View>
         </View>
         <View className="pb-6 mb-2 border-b-[1px] border-b-gray-300">
@@ -92,17 +75,8 @@ const ApplicationsScreen = () => {
             Telecom Network Management
           </Text>
           <View className="flex-row">
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed ? "#dedfe1" : "white",
-                  width: 140,
-                  padding: 12,
-                  borderRadius: 8,
-                },
-              ]}
-            >
-              <View className="items-center">
+            <ButtonChangeBg radius={8}>
+              <View className="items-center w-[140px] p-3">
                 <View className="border-4 border-[#0760ff] h-20 w-20 rounded-full flex items-center justify-center">
                   <G_TLC height={58} width={58} />
                 </View>
@@ -113,7 +87,7 @@ const ApplicationsScreen = () => {
                   telecom.g-on.vn
                 </Text>
               </View>
-            </Pressable>
+            </ButtonChangeBg>
           </View>
         </View>
       </ScrollView>

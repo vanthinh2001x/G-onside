@@ -1,11 +1,9 @@
-import { View, Text, Image, Dimensions } from "react-native";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Dimensions, Image } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
-const ImageCarousel = ({ url }) => {
+const ImageDetailItem = ({ url }) => {
   const [imgSize, setImgSize] = useState({ width: 0.1, height: 0 });
   useEffect(() => {
     Image.getSize(url, (width, height) => {
@@ -29,4 +27,4 @@ const ImageCarousel = ({ url }) => {
   );
 };
 
-export default ImageCarousel;
+export default ImageDetailItem;

@@ -34,7 +34,7 @@ const CameraScreen = ({ navigation }) => {
   const takePicture = async () => {
     if (cameraRef) {
       try {
-        const data = await cameraRef.current.takePictureAsync("Hiii");
+        const data = await cameraRef.current.takePictureAsync();
         setImage(data);
         setIsSave(false);
       } catch (e) {
@@ -96,7 +96,6 @@ const CameraScreen = ({ navigation }) => {
     else if (newZoom > 0.5) newZoom = 0.5;
     setZoom(newZoom);
   };
-
   return (
     <View className="flex-1">
       <StatusBar hidden={true} />

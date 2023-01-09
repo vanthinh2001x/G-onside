@@ -1,8 +1,9 @@
-import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
-import React, { useRef } from "react";
-import { Ionicons } from "react-native-vector-icons";
 import { Portal } from "@gorhom/portal";
+import React, { useRef } from "react";
+import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
 import { Modalize } from "react-native-modalize";
+import { Ionicons } from "react-native-vector-icons";
+import ButtonChangeBg from "./ButtonChangeBg";
 
 const NotificationItem = ({ notification }) => {
   const modalizeRef = useRef(null);
@@ -36,7 +37,7 @@ const NotificationItem = ({ notification }) => {
             </Text>
           </View>
           <TouchableOpacity onPress={() => modalizeRef.current.open()}>
-            <Ionicons name="ellipsis-horizontal-outline" size={24} />
+            <Ionicons name="ellipsis-horizontal" size={24} />
           </TouchableOpacity>
         </View>
       </Pressable>
@@ -58,10 +59,8 @@ const NotificationItem = ({ notification }) => {
               </Text>
             </View>
             <View className="pb-10 flex-col">
-              <Pressable
-                style={({ pressed }) => [
-                  { backgroundColor: pressed ? "#e4e4e4" : "white" },
-                ]}
+              <ButtonChangeBg
+                bgPress={"#e4e4e4"}
                 onPress={() => modalizeRef.current.close()}
               >
                 <View className="flex-row items-center py-2 px-6">
@@ -72,11 +71,9 @@ const NotificationItem = ({ notification }) => {
                     Remove this notification
                   </Text>
                 </View>
-              </Pressable>
-              <Pressable
-                style={({ pressed }) => [
-                  { backgroundColor: pressed ? "#e4e4e4" : "white" },
-                ]}
+              </ButtonChangeBg>
+              <ButtonChangeBg
+                bgPress={"#e4e4e4"}
                 onPress={() => modalizeRef.current.close()}
               >
                 <View className="flex-row items-center py-2 px-6">
@@ -87,7 +84,7 @@ const NotificationItem = ({ notification }) => {
                     Mark this notification as read
                   </Text>
                 </View>
-              </Pressable>
+              </ButtonChangeBg>
             </View>
           </View>
         </Modalize>

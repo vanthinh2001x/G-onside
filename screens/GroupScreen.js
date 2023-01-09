@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import GroupItem from "../components/GroupItem";
 import SearchBar from "../components/SearchBar";
 import UserItem from "../components/UserItem";
@@ -311,20 +312,16 @@ const GroupScreen = ({ navigation }) => {
         <View className="flex-row items-center justify-between py-4">
           <View className="w-9" />
           <Text className="text-[22px] font-bold text-gray-900">Users</Text>
-          <Pressable
-            onPress={() => searchRef.current.focus()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
-                transform: [{ scale: pressed ? 0.95 : 1 }],
-                borderRadius: 18,
-              },
-            ]}
+          <ButtonChangeBg
+            bg={"#e4e5ea"}
+            bgPress={"#cdced3"}
+            scale={0.95}
+            radius={18}
           >
             <View className="w-9 h-9 rounded-full flex items-center justify-center">
               <Ionicons name="search" size={24} />
             </View>
-          </Pressable>
+          </ButtonChangeBg>
         </View>
         <View>
           <SearchBar

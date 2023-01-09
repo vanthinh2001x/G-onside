@@ -70,22 +70,36 @@ const CreatePostScreen = ({ navigation, route }) => {
       {/* header */}
       <View className="flex-row items-center justify-between bg-gray-100 p-2 pt-7">
         <View className="w-16 h-9 flex items-start">
-          <ButtonChangeBg radius={100}>
+          <ButtonChangeBg radius={100} onPress={() => navigation.goBack()}>
             <View className="w-10 h-10 flex justify-center items-center rounded-full">
               <Ionicons name="close" size={28} />
             </View>
           </ButtonChangeBg>
         </View>
         <Text className="text-lg font-semibold">Create Post</Text>
-        <ButtonChangeBg bg={"#3b82f6"} bgPress={"#0369a1"} radius={6}>
+        <ButtonChangeBg
+          bg={"#3b82f6"}
+          bgPress={"#0369a1"}
+          radius={6}
+          onPress={() => console.log("press")}
+          disabled={
+            !text && documentFile.length === 0 && mediaFile.length === 0
+          }
+        >
           <View
             className={`flex items-center justify-center w-16 h-9 rounded-md ${
-              !text && "bg-[#e4e5ea]"
+              !text &&
+              documentFile.length === 0 &&
+              mediaFile.length === 0 &&
+              "bg-[#e4e5ea]"
             }`}
           >
             <Text
               className={`text-lg font-medium text-white ${
-                !text && "text-[#c1c2c8]"
+                !text &&
+                documentFile.length === 0 &&
+                mediaFile.length === 0 &&
+                "text-[#c1c2c8]"
               }`}
             >
               Post
@@ -130,7 +144,7 @@ const CreatePostScreen = ({ navigation, route }) => {
         {documentFile.length > 0 && (
           <View className="px-3 mb-3">
             {documentFile.map((item, index) => (
-              <View className="flex-row items-center mb-2">
+              <View className="flex-row items-center mb-2" key={index}>
                 <ButtonChangeBg
                   onPress={() => handleRemoveDocument(index)}
                   bg={"#ef4444"}

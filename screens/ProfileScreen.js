@@ -4,7 +4,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useRef, useState } from "react";
 import {
   Image,
-  Pressable,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -19,6 +18,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhotoVisible } from "../app/features/photoModalSlice";
 import { logout } from "../app/features/userSlice";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import PhotoDetailModal from "../components/PhotoDetailModal";
 import StorageKeys from "../constants/storage-key";
 import { AndroidSafeArea } from "../utils/AndroidSafeArea";
@@ -108,20 +108,17 @@ const ProfileScreen = ({ navigation }) => {
       <View className="flex-row items-center justify-between py-4 px-4 border-b-[1px] border-b-gray-100">
         <View className="w-9" />
         <Text className="text-[22px] font-bold text-gray-900">Profile</Text>
-        <Pressable
+        <ButtonChangeBg
+          bg={"#e4e5ea"}
+          bgPress={"#cdced3"}
+          scale={0.95}
+          radius={18}
           onPress={() => navigation.navigate("EditProfile")}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#cdced3" : "#e4e5ea",
-              transform: [{ scale: pressed ? 0.95 : 1 }],
-              borderRadius: 18,
-            },
-          ]}
         >
           <View className="w-9 h-9 rounded-full flex items-center justify-center">
             <Ionicons name="create-outline" size={24} />
           </View>
-        </Pressable>
+        </ButtonChangeBg>
       </View>
       <ScrollView
         refreshControl={
@@ -131,7 +128,7 @@ const ProfileScreen = ({ navigation }) => {
         <View className="flex-row items-center px-6 pt-8">
           <View>
             <TouchableOpacity
-              activeOpacity={0.6}
+              activeOpacity={0.8}
               onPress={() => avatarSheetRef.current.open()}
             >
               <Image
@@ -205,12 +202,7 @@ const ProfileScreen = ({ navigation }) => {
               </View>
             </View>
           </View>
-          <Pressable
-            style={({ pressed }) => [
-              { backgroundColor: pressed ? "#e4e4e4" : "white" },
-            ]}
-            onPress={() => navigation.navigate("ChangePassword")}
-          >
+          <ButtonChangeBg onPress={() => navigation.navigate("ChangePassword")}>
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
               <Ionicons name="key-outline" size={26} color="#1e293b" />
               <Text className="flex-1 text-lg font-semibold text-slate-800">
@@ -222,20 +214,15 @@ const ProfileScreen = ({ navigation }) => {
                 color="#1e293b"
               />
             </View>
-          </Pressable>
-          <Pressable
-            style={({ pressed }) => [
-              { backgroundColor: pressed ? "#e4e4e4" : "white" },
-            ]}
-            onPress={logoutPress}
-          >
+          </ButtonChangeBg>
+          <ButtonChangeBg onPress={logoutPress}>
             <View className="flex-row items-center gap-4 px-6 py-4 border-b-[1px] border-b-gray-300 ">
               <Ionicons name="log-out-outline" size={26} color="#1e293b" />
               <Text className="flex-1 text-lg font-semibold text-slate-800">
                 Logout
               </Text>
             </View>
-          </Pressable>
+          </ButtonChangeBg>
         </View>
       </ScrollView>
       {/* BottomSheet */}
@@ -247,39 +234,39 @@ const ProfileScreen = ({ navigation }) => {
           handleStyle={{ backgroundColor: "#bcc0c1" }}
         >
           <View className="h-[240px] pt-6">
-            <TouchableOpacity
+            <ButtonChangeBg
               onPress={() => {
                 onImagePress();
                 avatarSheetRef.current.close();
               }}
-              activeOpacity={0.6}
-              className="flex-row items-center py-3 px-6"
             >
-              <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
-                <Ionicons
-                  name="person-circle-outline"
-                  color="#111827"
-                  size={26}
-                />
+              <View className="flex-row items-center py-3 px-6">
+                <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
+                  <Ionicons
+                    name="person-circle-outline"
+                    color="#111827"
+                    size={26}
+                  />
+                </View>
+                <Text className="text-lg font-medium text-gray-900">
+                  View Profile Picture
+                </Text>
               </View>
-              <Text className="text-lg font-medium text-gray-900">
-                View Profile Picture
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.6}
+            </ButtonChangeBg>
+            <ButtonChangeBg
               onPress={() => {
                 avatarSheetRef.current.close();
               }}
-              className="flex-row items-center py-3 px-6"
             >
-              <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
-                <Ionicons name="images" color="#111827" size={24} />
+              <View className="flex-row items-center py-3 px-6">
+                <View className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 mr-3">
+                  <Ionicons name="images" color="#111827" size={24} />
+                </View>
+                <Text className="text-lg font-medium text-gray-900">
+                  Select Profile Picture
+                </Text>
               </View>
-              <Text className="text-lg font-medium text-gray-900">
-                Select Profile Picture
-              </Text>
-            </TouchableOpacity>
+            </ButtonChangeBg>
           </View>
         </Modalize>
       </Portal>

@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from "react";
 import {
-  Pressable,
   RefreshControl,
   SafeAreaView,
   ScrollView,
@@ -8,6 +7,7 @@ import {
   View,
 } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import UserItem from "../components/UserItem";
 
 const GroupMemberListScreen = ({ navigation, route }) => {
@@ -23,19 +23,15 @@ const GroupMemberListScreen = ({ navigation, route }) => {
     <SafeAreaView className="bg-white flex-1">
       <View className="flex-row items-center justify-between p-2 border-b-[1px] border-b-gray-100">
         <View className="w-16 h-9 flex items-start">
-          <Pressable
+          <ButtonChangeBg
+            bgPress={"#dedfe1"}
+            radius="18"
             onPress={() => navigation.goBack()}
-            style={({ pressed }) => [
-              {
-                backgroundColor: pressed ? "#dedfe1" : "transparent",
-                borderRadius: 100,
-              },
-            ]}
           >
             <View className="w-9 h-9 flex justify-center items-center rounded-full">
               <Ionicons name="arrow-back" size={28} />
             </View>
-          </Pressable>
+          </ButtonChangeBg>
         </View>
         <Text className="text-lg font-semibold">{name}</Text>
         <View className="w-16" />

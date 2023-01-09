@@ -179,14 +179,12 @@ const NotificationsScreen = ({ navigation }) => {
         className="bg-white flex-1"
         style={AndroidSafeArea.AndroidSafeArea}
       >
-        <View className="flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
+        <View className="flex-row items-center justify-between p-4 border-b-[1px] border-b-gray-100">
+          <View className="w-9" />
           <Text className="font-bold text-[22px] text-gray-900">
             Notification
           </Text>
-          <Pressable
-            onPress={() => modalizeRef.current?.open()}
-            className="absolute right-4 translate-y-[2px]"
-          >
+          <Pressable onPress={() => modalizeRef.current?.open()}>
             <Text className="text-base font-semibold">
               <Ionicons name="settings" size={25} />
             </Text>
@@ -196,6 +194,7 @@ const NotificationsScreen = ({ navigation }) => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
+          showsVerticalScrollIndicator={false}
         >
           {notifications.map((notification, index) => (
             <NotificationItem notification={notification} key={index} />

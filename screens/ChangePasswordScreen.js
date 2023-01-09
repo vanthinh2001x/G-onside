@@ -36,33 +36,6 @@ const ChangePasswordScreen = ({ navigation }) => {
         <Text className="text-lg font-semibold">Change Password</Text>
         <View className="w-16" />
       </View>
-      {/* <View className="relative flex-row items-center justify-center p-4 border-b-[1px] border-b-gray-100">
-        <TouchableOpacity
-          activeOpacity={0.6}
-          onPress={() => navigation.goBack()}
-          className="absolute left-4"
-        >
-          <Text className="text-base font-semibold">
-            <Ionicons name="chevron-back" size={28} />
-          </Text>
-        </TouchableOpacity>
-        <Pressable
-          onPress={() => navigation.goBack()}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#dedfe1" : "transparent",
-              borderRadius: 100,
-            },
-          ]}
-        >
-          <Text className="text-base font-semibold">
-            <Ionicons name="chevron-back" size={28} />
-          </Text>
-        </Pressable>
-        <Text className="text-xl font-semibold text-gray-900">
-          Change password
-        </Text>
-      </View> */}
       <ScrollView
         pagingEnabled
         showsVerticalScrollIndicator={false}

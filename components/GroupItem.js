@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, Pressable, Text, TouchableOpacity, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 
 const GroupItem = ({ group, navigation }) => {
   return (

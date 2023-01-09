@@ -3,8 +3,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useRef, useState } from "react";
 import { Animated, Dimensions, Pressable, Text, View } from "react-native";
 import { Ionicons } from "react-native-vector-icons";
+import ButtonChangeBg from "../components/ButtonChangeBg";
 import CarouselIndicator from "../components/CarouselIndicator";
-import ImageCarousel from "../components/ImageCarousel";
+import ImageDetailItem from "../components/ImageDetailItem";
+import * as MediaLibrary from "expo-media-library";
+import * as Sharing from "expo-sharing";
 const { width, height } = Dimensions.get("window");
 
 const ImageDetailScreen = ({ navigation, route }) => {
@@ -23,6 +26,53 @@ const ImageDetailScreen = ({ navigation, route }) => {
     offset: width * index,
     index,
   });
+  //Save Image
+  const handleSaveImage = async () => {
+    try {
+      const { status } = await MediaLibrary.requestPermissionsAsync();
+      if (status === "granted") {
+        await MediaLibrary.saveToLibraryAsync(images[index]);
+        console.log("Image successfully saved");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  //copy Image
+  //share Image
+  // const [state, setState] = useState(null);
+  // const handleShareImage = () => {
+  //   const options = {
+  //     mimeType: "text/x-vcard",
+  //     dialogTitle: "Share vcard",
+  //     UTI: "text/vcard",
+  //   };
+
+  //   FileSystem.writeAsStringAsync(fileUri, vcard)
+  //     .then((data) => {
+  //       setState("Wrote vcard file");
+  //     })
+  //     .catch((err) => {
+  //       setState("Error writing vcard file");
+  //       console.log(JSON.stringify(err));
+  //     });
+
+  //   Sharing.shareAsync(fileUri, options)
+  //     .then((data) => {
+  //       setState("Shared");
+  //     })
+  //     .catch((err) => {
+  //       setState("Error sharing vcard");
+  //       console.log(JSON.stringify(err));
+  //     });
+  //   Share.open(options)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       err && console.log(err);
+  //     });
+  // };
   // options Modal
   const { showActionSheetWithOptions } = useActionSheet();
   const optionsPress = () => {
@@ -40,13 +90,13 @@ const ImageDetailScreen = ({ navigation, route }) => {
       (selectedIndex) => {
         switch (selectedIndex) {
           case 0:
-            () => {};
+            handleSaveImage();
             break;
           case 1:
             () => {};
             break;
           case 2:
-            () => {};
+            // handleShareImage();
             break;
           case cancelButtonIndex:
           // cancel
@@ -66,24 +116,27 @@ const ImageDetailScreen = ({ navigation, route }) => {
         end={{ x: 0.5, y: 1 }}
         className="flex-row items-center justify-between h-20 px-3 z-20"
       >
-        <Pressable
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? "#3b82f6" : "#fff",
-              borderRadius: 14,
-            },
-          ]}
+        <ButtonChangeBg
+          bg={"#fff"}
+          bgPress={"#3b82f6"}
+          radius={14}
           onPress={() => navigation.goBack()}
         >
           <View className="w-7 h-7 rounded-full flex items-center justify-center">
             <Ionicons name="close" size={24} />
           </View>
-        </Pressable>
+        </ButtonChangeBg>
         <Text className="text-white text-lg font-medium">
           {index + 1}/{images.length}
         </Text>
         <Pressable onPress={optionsPress}>
-          <Ionicons name="ellipsis-horizontal" size={24} color="#fff" />
+          {({ pressed }) => (
+            <Ionicons
+              name="ellipsis-horizontal"
+              size={24}
+              color={pressed ? "#3b82f6" : "#fff"}
+            />
+          )}
         </Pressable>
       </LinearGradient>
       {/* Main */}
@@ -91,7 +144,7 @@ const ImageDetailScreen = ({ navigation, route }) => {
         <Animated.FlatList
           style={{ flexGrow: 0 }}
           data={images}
-          renderItem={({ item, index }) => <ImageCarousel url={item} />}
+          renderItem={({ item, index }) => <ImageDetailItem url={item} />}
           horizontal
           pagingEnabled
           bounces={false}
